@@ -31,23 +31,23 @@ const partnerLogos = [
 
 export const ClientsSection = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-16 sm:py-24 relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Clients Section */}
-        <div className="mb-24">
-          <div className="text-center mb-12">
+        <div className="mb-16 sm:mb-24">
+          <div className="text-center mb-8 sm:mb-12">
             <FadeInText>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
                 TRUSTED BY
               </span>
             </FadeInText>
             <FadeInText delay={0.1}>
-              <h2 className="text-3xl md:text-5xl font-bold">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold">
                 Our <span className="text-gradient">Clients</span>
               </h2>
             </FadeInText>
@@ -65,19 +65,19 @@ export const ClientsSection = () => {
 
         {/* Partners Section */}
         <div>
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12">
             <FadeInText>
-              <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
+              <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary/10 text-secondary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
                 MSDUK CERTIFIED
               </span>
             </FadeInText>
             <FadeInText delay={0.1}>
-              <h2 className="text-2xl md:text-4xl font-bold mb-2">
+              <h2 className="text-xl sm:text-2xl md:text-4xl font-bold mb-2">
                 Certified Diversity-Owned Technology Company
               </h2>
             </FadeInText>
             <FadeInText delay={0.2}>
-              <p className="text-muted-foreground max-w-xl mx-auto">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-2">
                 Premier member of MSDUK - Technology Partners
               </p>
             </FadeInText>

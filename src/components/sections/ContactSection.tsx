@@ -82,7 +82,7 @@ export const ContactSection = () => {
           </FadeInText>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto">
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -90,14 +90,14 @@ export const ContactSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <GlassCard className="p-8" hoverEffect={false}>
-              <h3 className="text-2xl font-bold mb-6 text-foreground flex items-center gap-3">
-                <MessageSquare className="w-6 h-6 text-primary" />
+            <GlassCard className="p-5 sm:p-6 lg:p-8" hoverEffect={false}>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-foreground flex items-center gap-3">
+                <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                 Send a Message
               </h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-muted-foreground mb-2">
                       Your Name
@@ -246,7 +246,7 @@ export const ContactSection = () => {
 
       {/* Floating Contact Button */}
       <motion.div
-        className="fixed bottom-8 right-8 z-50"
+        className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-50"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 2, type: "spring" }}
@@ -254,10 +254,10 @@ export const ContactSection = () => {
         <MagneticButton
           variant="primary"
           size="lg"
-          className="rounded-full w-14 h-14 p-0 shadow-glow animate-pulse-glow"
+          className="rounded-full w-12 h-12 sm:w-14 sm:h-14 p-0 shadow-glow animate-pulse-glow"
           onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
         >
-          <MessageSquare className="w-6 h-6" />
+          <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
         </MagneticButton>
       </motion.div>
     </section>

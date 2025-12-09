@@ -51,7 +51,7 @@ const industries = [
 
 export const IndustriesSection = () => {
   return (
-    <section id="solutions" className="py-24 relative overflow-hidden">
+    <section id="solutions" className="py-16 sm:py-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/20 to-background" />
       
@@ -64,30 +64,30 @@ export const IndustriesSection = () => {
         backgroundSize: '100px 100px',
       }} />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <FadeInText>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
               INDUSTRIES
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               AI XR Use Cases Across
               <br />
               <span className="text-gradient">All Vertical Segments</span>
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
               We aim to solve both industry and society challenges with intelligent AI XR solutions.
             </p>
           </FadeInText>
         </div>
 
         {/* Industries Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {industries.map((industry, index) => (
             <motion.div
               key={index}
@@ -97,25 +97,25 @@ export const IndustriesSection = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <GlassCard 
-                className="p-8 h-full group cursor-pointer" 
+                className="p-5 sm:p-6 lg:p-8 h-full group cursor-pointer" 
                 glowColor="mixed"
               >
                 {/* Icon with Gradient Background */}
                 <div className={`
-                  w-16 h-16 rounded-2xl mb-6
+                  w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl mb-4 sm:mb-6
                   bg-gradient-to-br ${industry.color}
                   flex items-center justify-center
                   group-hover:scale-110 group-hover:rotate-3
                   transition-all duration-300
                   shadow-lg
                 `}>
-                  <div className="text-white">{industry.icon}</div>
+                  <div className="text-white [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-6 sm:[&>svg]:h-6 lg:[&>svg]:w-8 lg:[&>svg]:h-8">{industry.icon}</div>
                 </div>
 
-                <h3 className="text-xl font-bold mb-3 text-foreground group-hover:text-primary transition-colors">
+                <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-2 sm:mb-3 text-foreground group-hover:text-primary transition-colors">
                   {industry.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
                   {industry.description}
                 </p>
 

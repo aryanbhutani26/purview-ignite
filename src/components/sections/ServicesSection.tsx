@@ -90,27 +90,27 @@ const devices = [
 
 export const ServicesSection = () => {
   return (
-    <section id="services" className="py-24 relative overflow-hidden">
+    <section id="services" className="py-16 sm:py-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/30 to-background" />
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <FadeInText delay={0}>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
               SERVICES
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               Empowering Businesses with
               <br />
               <span className="text-gradient">Intelligent Solutions</span>
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
               Our AI XR solutions enable industries with intelligent remote assistance, 
               accelerate learning with 3D AR models, and document visual inspections in real-time.
             </p>
@@ -118,7 +118,7 @@ export const ServicesSection = () => {
         </div>
 
         {/* AI Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-16 sm:mb-24">
           {services.map((service, index) => (
             <FeatureCard
               key={index}
@@ -131,15 +131,15 @@ export const ServicesSection = () => {
         </div>
 
         {/* Compatible Devices */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <FadeInText>
-            <h3 className="text-2xl md:text-4xl font-bold mb-4">
+            <h3 className="text-xl sm:text-2xl md:text-4xl font-bold mb-3 sm:mb-4">
               Compatible <span className="text-gradient">Smart Devices</span>
             </h3>
           </FadeInText>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {devices.map((device, index) => (
             <GlassCard 
               key={index} 

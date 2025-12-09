@@ -33,29 +33,29 @@ const stats = [{
   label: "Commitment"
 }];
 export const AboutSection = () => {
-  return <section id="about" className="py-24 relative overflow-hidden">
+  return <section id="about" className="py-16 sm:py-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-secondary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-primary/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <FadeInText>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
+            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary/10 text-secondary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
               ABOUT US
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               Leading <span className="text-gradient">AI Innovation</span>
               <br />in XR Solutions
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>
-            <p className="text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto px-2">
               Purview Technologies is at the forefront of transforming industries through intelligent 
               AI XR solutions. We combine cutting-edge augmented reality with advanced artificial 
               intelligence to create experiences that empower both enterprises and individuals.
@@ -64,7 +64,7 @@ export const AboutSection = () => {
         </div>
 
         {/* Stats */}
-        <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16" initial={{
+        <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-10 sm:mb-16" initial={{
         opacity: 0,
         y: 30
       }} whileInView={{
@@ -75,8 +75,8 @@ export const AboutSection = () => {
       }} transition={{
         duration: 0.6
       }}>
-          {stats.map((stat, index) => <GlassCard key={index} className="p-6 text-center" delay={index * 0.1}>
-              <motion.div className="text-4xl md:text-5xl font-bold text-gradient mb-2" initial={{
+          {stats.map((stat, index) => <GlassCard key={index} className="p-4 sm:p-6 text-center" delay={index * 0.1}>
+              <motion.div className="text-2xl sm:text-4xl md:text-5xl font-bold text-gradient mb-1 sm:mb-2" initial={{
             scale: 0.8
           }} whileInView={{
             scale: 1
@@ -88,12 +88,12 @@ export const AboutSection = () => {
           }}>
                 {stat.value}
               </motion.div>
-              <p className="text-muted-foreground text-sm">{stat.label}</p>
+              <p className="text-muted-foreground text-xs sm:text-sm">{stat.label}</p>
             </GlassCard>)}
         </motion.div>
 
         {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {values.map((value, index) => <motion.div key={index} initial={{
           opacity: 0,
           y: 30
@@ -106,16 +106,16 @@ export const AboutSection = () => {
           duration: 0.6,
           delay: index * 0.15
         }}>
-              <GlassCard className="p-8 h-full group" glowColor="purple">
-                <div className="flex items-start gap-5">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+              <GlassCard className="p-5 sm:p-6 lg:p-8 h-full group" glowColor="purple">
+                <div className="flex items-start gap-3 sm:gap-5">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <div className="text-secondary">{value.icon}</div>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-secondary transition-colors">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-1 sm:mb-2 text-foreground group-hover:text-secondary transition-colors">
                       {value.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
                       {value.description}
                     </p>
                   </div>

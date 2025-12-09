@@ -64,7 +64,7 @@ export const ProductsSection = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
@@ -76,7 +76,7 @@ export const ProductsSection = () => {
             >
               {/* Card */}
               <div className={`
-                relative rounded-3xl overflow-hidden h-[500px]
+                relative rounded-2xl sm:rounded-3xl overflow-hidden h-[400px] sm:h-[450px] lg:h-[500px]
                 bg-gradient-to-br ${product.gradient}
                 border border-foreground/10
                 group-hover:border-${product.accentColor}/30
@@ -97,24 +97,24 @@ export const ProductsSection = () => {
                 />
 
                 {/* Content */}
-                <div className="relative h-full flex flex-col justify-end p-8">
+                <div className="relative h-full flex flex-col justify-end p-5 sm:p-6 lg:p-8">
                   {/* Product Logo/Title */}
                   <motion.div
-                    className="mb-auto pt-8"
+                    className="mb-auto pt-4 sm:pt-6 lg:pt-8"
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <h3 className="text-5xl font-black text-gradient mb-2">
+                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gradient mb-2">
                       {product.title}
                     </h3>
                   </motion.div>
 
                   {/* Product Info */}
                   <div>
-                    <h4 className="text-xl font-semibold text-foreground mb-3">
+                    <h4 className="text-base sm:text-lg lg:text-xl font-semibold text-foreground mb-2 sm:mb-3">
                       {product.subtitle}
                     </h4>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 line-clamp-4 sm:line-clamp-none">
                       {product.description}
                     </p>
 
