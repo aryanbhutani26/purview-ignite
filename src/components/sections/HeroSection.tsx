@@ -17,22 +17,22 @@ export const HeroSection = () => {
       <AnimatedBeams />
 
       {/* Hero Content */}
-      <div className="container mx-auto px-6 relative z-10 pt-20">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-16 sm:pt-20">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 mb-6 sm:mb-8"
           >
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm text-primary font-medium">Transforming Reality</span>
+            <span className="text-xs sm:text-sm text-primary font-medium">Transforming Reality</span>
           </motion.div>
 
           {/* Main Headline */}
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -41,14 +41,14 @@ export const HeroSection = () => {
             <br />
             <span className="text-foreground">Transformation with</span>
             <br />
-            <GradientText className="text-5xl md:text-7xl lg:text-8xl">
+            <GradientText className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl">
               AI XR
             </GradientText>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10 px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -59,16 +59,16 @@ export const HeroSection = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-wrap items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <MagneticButton variant="primary" size="lg">
+            <MagneticButton variant="primary" size="lg" className="w-full sm:w-auto">
               Read More
               <ArrowRight className="w-5 h-5" />
             </MagneticButton>
-            <MagneticButton variant="outline" size="lg">
+            <MagneticButton variant="outline" size="lg" className="w-full sm:w-auto">
               <Play className="w-5 h-5" />
               Watch Demo
             </MagneticButton>
@@ -76,7 +76,7 @@ export const HeroSection = () => {
 
           {/* Stats */}
           <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mt-12 sm:mt-20"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
@@ -94,10 +94,10 @@ export const HeroSection = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
               >
-                <div className="text-3xl md:text-4xl font-bold text-gradient mb-1">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
