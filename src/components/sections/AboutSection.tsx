@@ -3,19 +3,19 @@ import { FadeInText } from "../ui/AnimatedText";
 import { GlassCard } from "../ui/GlassCard";
 import { Target, Eye, Award, Users } from "lucide-react";
 const values = [{
-  icon: <Target className="w-6 h-6 text-secondary-foreground bg-secondary-foreground" />,
+  icon: <Target className="w-6 h-6 text-primary/70" />,
   title: "Mission",
   description: "To transform how industries operate through intelligent AI XR solutions that enhance productivity and accessibility."
 }, {
-  icon: <Eye className="w-6 h-6" />,
+  icon: <Eye className="w-6 h-6 text-primary/70" />,
   title: "Vision",
   description: "A world where technology bridges gaps, empowers individuals, and creates seamless human-digital experiences."
 }, {
-  icon: <Award className="w-6 h-6" />,
+  icon: <Award className="w-6 h-6 text-primary/70" />,
   title: "Excellence",
   description: "Committed to delivering cutting-edge solutions that exceed expectations and drive measurable outcomes."
 }, {
-  icon: <Users className="w-6 h-6" />,
+  icon: <Users className="w-6 h-6 text-primary/70" />,
   title: "Inclusion",
   description: "Creating technology that's accessible to all, including assistive solutions for sensory impairments."
 }];
