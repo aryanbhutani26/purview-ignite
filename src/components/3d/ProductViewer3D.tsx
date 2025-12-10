@@ -15,50 +15,120 @@ const SmartGlasses = () => {
 
   return (
     <Float speed={2} rotationIntensity={0.3} floatIntensity={0.5}>
-      <group ref={groupRef} position={[0, 0, 0]} scale={1.5}>
-        {/* Frame */}
-        <RoundedBox args={[2.4, 0.6, 0.15]} radius={0.08} position={[0, 0, 0]}>
-          <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
+      <group ref={groupRef} position={[0, 0, 0]} scale={1.2}>
+        {/* Main frame - sleek wraparound style */}
+        <mesh position={[0, 0, 0]}>
+          <torusGeometry args={[1.3, 0.06, 8, 64, Math.PI]} />
+          <meshStandardMaterial color="#1a1a2e" metalness={0.95} roughness={0.05} />
+        </mesh>
+        
+        {/* Left lens housing */}
+        <RoundedBox args={[1.1, 0.55, 0.12]} radius={0.1} position={[-0.7, 0, 0.15]}>
+          <meshStandardMaterial color="#0d0d1a" metalness={0.9} roughness={0.1} />
         </RoundedBox>
         
-        {/* Left lens */}
-        <RoundedBox args={[0.9, 0.5, 0.05]} radius={0.05} position={[-0.55, 0, 0.05]}>
+        {/* Right lens housing */}
+        <RoundedBox args={[1.1, 0.55, 0.12]} radius={0.1} position={[0.7, 0, 0.15]}>
+          <meshStandardMaterial color="#0d0d1a" metalness={0.9} roughness={0.1} />
+        </RoundedBox>
+        
+        {/* Left lens - holographic display */}
+        <RoundedBox args={[0.95, 0.42, 0.02]} radius={0.08} position={[-0.7, 0, 0.22]}>
           <meshStandardMaterial 
             color="#00D4D4" 
-            metalness={0.3} 
-            roughness={0.1} 
+            metalness={0.1} 
+            roughness={0.05} 
             transparent 
-            opacity={0.4}
+            opacity={0.35}
             emissive="#00D4D4"
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.4}
           />
         </RoundedBox>
         
-        {/* Right lens */}
-        <RoundedBox args={[0.9, 0.5, 0.05]} radius={0.05} position={[0.55, 0, 0.05]}>
+        {/* Right lens - holographic display */}
+        <RoundedBox args={[0.95, 0.42, 0.02]} radius={0.08} position={[0.7, 0, 0.22]}>
           <meshStandardMaterial 
             color="#00D4D4" 
-            metalness={0.3} 
-            roughness={0.1} 
+            metalness={0.1} 
+            roughness={0.05} 
             transparent 
-            opacity={0.4}
+            opacity={0.35}
             emissive="#00D4D4"
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.4}
           />
         </RoundedBox>
         
-        {/* Temple arms */}
-        <RoundedBox args={[0.8, 0.1, 0.08]} radius={0.02} position={[-1.4, 0, -0.35]} rotation={[0, -0.3, 0]}>
-          <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
-        </RoundedBox>
-        <RoundedBox args={[0.8, 0.1, 0.08]} radius={0.02} position={[1.4, 0, -0.35]} rotation={[0, 0.3, 0]}>
+        {/* Nose bridge */}
+        <RoundedBox args={[0.25, 0.15, 0.1]} radius={0.04} position={[0, -0.15, 0.1]}>
           <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
         </RoundedBox>
         
-        {/* LED indicator */}
-        <mesh position={[1.1, 0.2, 0.1]}>
-          <sphereGeometry args={[0.04, 16, 16]} />
+        {/* Left temple arm - angled back */}
+        <group position={[-1.25, 0, 0]}>
+          <RoundedBox args={[0.15, 0.12, 0.5]} radius={0.03} position={[0, 0, -0.25]} rotation={[0.1, 0.15, 0]}>
+            <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
+          </RoundedBox>
+          <RoundedBox args={[0.12, 0.1, 0.8]} radius={0.03} position={[-0.05, 0, -0.85]} rotation={[0, 0.05, 0]}>
+            <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
+          </RoundedBox>
+          {/* Ear hook */}
+          <RoundedBox args={[0.08, 0.08, 0.3]} radius={0.02} position={[-0.08, -0.08, -1.35]} rotation={[0.4, 0, 0]}>
+            <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
+          </RoundedBox>
+        </group>
+        
+        {/* Right temple arm - with tech module */}
+        <group position={[1.25, 0, 0]}>
+          <RoundedBox args={[0.15, 0.12, 0.5]} radius={0.03} position={[0, 0, -0.25]} rotation={[0.1, -0.15, 0]}>
+            <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
+          </RoundedBox>
+          {/* Tech module housing */}
+          <RoundedBox args={[0.2, 0.18, 0.35]} radius={0.04} position={[0.08, 0.02, -0.6]} rotation={[0, -0.05, 0]}>
+            <meshStandardMaterial color="#0d0d1a" metalness={0.85} roughness={0.15} />
+          </RoundedBox>
+          <RoundedBox args={[0.12, 0.1, 0.6]} radius={0.03} position={[0.05, 0, -1.0]} rotation={[0, -0.05, 0]}>
+            <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
+          </RoundedBox>
+          {/* Ear hook */}
+          <RoundedBox args={[0.08, 0.08, 0.3]} radius={0.02} position={[0.08, -0.08, -1.35]} rotation={[0.4, 0, 0]}>
+            <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
+          </RoundedBox>
+        </group>
+        
+        {/* Camera/sensor module on right side */}
+        <mesh position={[1.3, 0.15, 0.1]}>
+          <cylinderGeometry args={[0.06, 0.06, 0.08, 16]} />
+          <meshStandardMaterial color="#0a0a15" metalness={0.95} roughness={0.05} />
+        </mesh>
+        <mesh position={[1.3, 0.15, 0.15]}>
+          <cylinderGeometry args={[0.04, 0.04, 0.02, 16]} />
+          <meshStandardMaterial color="#1a1a3e" metalness={0.3} roughness={0.1} />
+        </mesh>
+        
+        {/* LED status indicators */}
+        <mesh position={[1.35, 0.02, -0.35]}>
+          <sphereGeometry args={[0.025, 16, 16]} />
           <meshBasicMaterial color="#00ff88" />
+        </mesh>
+        <mesh position={[1.35, -0.05, -0.35]}>
+          <sphereGeometry args={[0.02, 16, 16]} />
+          <meshBasicMaterial color="#00D4D4" />
+        </mesh>
+        
+        {/* Microphone pinhole */}
+        <mesh position={[-1.2, -0.15, 0.15]}>
+          <cylinderGeometry args={[0.015, 0.015, 0.05, 8]} />
+          <meshStandardMaterial color="#0a0a15" metalness={0.9} roughness={0.1} />
+        </mesh>
+        
+        {/* Subtle glow ring around lenses */}
+        <mesh position={[-0.7, 0, 0.23]}>
+          <ringGeometry args={[0.48, 0.52, 32]} />
+          <meshBasicMaterial color="#00D4D4" transparent opacity={0.15} side={THREE.DoubleSide} />
+        </mesh>
+        <mesh position={[0.7, 0, 0.23]}>
+          <ringGeometry args={[0.48, 0.52, 32]} />
+          <meshBasicMaterial color="#00D4D4" transparent opacity={0.15} side={THREE.DoubleSide} />
         </mesh>
       </group>
     </Float>
