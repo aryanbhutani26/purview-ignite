@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { FadeInText } from "../ui/AnimatedText";
 import { ArrowUpRight } from "lucide-react";
+import { ProductViewer3D } from "../3d/ProductViewer3D";
 
 const products = [
   {
@@ -151,6 +152,16 @@ export const ProductsSection = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* 3D Product Viewer */}
+        <div className="mt-16">
+          <FadeInText delay={0.3}>
+            <h3 className="text-xl md:text-2xl font-bold text-center mb-8">
+              Interactive <span className="text-gradient">3D Experience</span>
+            </h3>
+          </FadeInText>
+          <ProductViewer3D />
         </div>
 
         {/* Additional Products Teaser */}

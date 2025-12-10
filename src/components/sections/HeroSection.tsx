@@ -3,6 +3,7 @@ import { AnimatedBeams, GridPattern, SpotlightEffect } from "../ui/AnimatedBeams
 import { MagneticButton, ScrollDownIndicator } from "../ui/MagneticButton";
 import { GradientText } from "../ui/AnimatedText";
 import { ArrowRight, Play } from "lucide-react";
+import { FloatingShapes3D } from "../3d/FloatingShapes";
 
 export const HeroSection = () => {
   return (
@@ -15,6 +16,9 @@ export const HeroSection = () => {
       <GridPattern />
       <SpotlightEffect />
       <AnimatedBeams />
+      
+      {/* 3D Floating Shapes */}
+      <FloatingShapes3D />
 
       {/* Hero Content */}
       <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-16 sm:pt-20">

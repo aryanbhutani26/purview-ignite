@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FadeInText } from "../ui/AnimatedText";
 import { GlassCard } from "../ui/GlassCard";
 import { Target, Eye, Award, Users } from "lucide-react";
+import { HeroGlobe } from "../3d/HeroGlobe";
 const values = [{
   icon: <Target className="w-6 h-6 text-primary/70" />,
   title: "Mission",
@@ -124,8 +125,32 @@ export const AboutSection = () => {
             </motion.div>)}
         </div>
 
+        {/* Global Presence with 3D Globe */}
+        <motion.div 
+          className="mt-12 sm:mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <FadeInText>
+            <h3 className="text-xl sm:text-2xl font-bold text-center mb-6">
+              <span className="text-gradient">Global</span> Presence
+            </h3>
+          </FadeInText>
+          <div className="relative h-[300px] sm:h-[400px] rounded-2xl overflow-hidden glass-card">
+            <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent" />
+            <HeroGlobe className="w-full h-full" />
+            <div className="absolute bottom-4 left-4 right-4 text-center">
+              <p className="text-sm text-muted-foreground">
+                Serving clients across <span className="text-primary font-semibold">15+ countries</span> worldwide
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
         {/* CTA */}
-        <motion.div className="mt-16 text-center" initial={{
+        <motion.div className="mt-12 sm:mt-16 text-center" initial={{
         opacity: 0
       }} whileInView={{
         opacity: 1
