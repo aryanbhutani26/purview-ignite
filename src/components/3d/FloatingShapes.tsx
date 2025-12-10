@@ -1,0 +1,182 @@
+import { useRef, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Float, MeshDistortMaterial, MeshWobbleMaterial, Sphere, Box, Torus, Icosahedron } from "@react-three/drei";
+import * as THREE from "three";
+
+const FloatingIcosahedron = ({ position, color, speed = 1 }: { position: [number, number, number]; color: string; speed?: number }) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.2 * speed;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3 * speed;
+    }
+  });
+
+  return (
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+      <Icosahedron ref={meshRef} args={[1, 1]} position={position}>
+        <MeshDistortMaterial
+          color={color}
+          attach="material"
+          distort={0.3}
+          speed={2}
+          roughness={0.2}
+          metalness={0.8}
+          transparent
+          opacity={0.7}
+        />
+      </Icosahedron>
+    </Float>
+  );
+};
+
+const FloatingSphere = ({ position, color, size = 0.5 }: { position: [number, number, number]; color: string; size?: number }) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
+    }
+  });
+
+  return (
+    <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.8}>
+      <Sphere ref={meshRef} args={[size, 32, 32]} position={position}>
+        <MeshWobbleMaterial
+          color={color}
+          attach="material"
+          factor={0.2}
+          speed={2}
+          roughness={0.1}
+          metalness={0.9}
+          transparent
+          opacity={0.6}
+        />
+      </Sphere>
+    </Float>
+  );
+};
+
+const FloatingTorus = ({ position, color }: { position: [number, number, number]; color: string }) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.4;
+      meshRef.current.rotation.z = state.clock.elapsedTime * 0.2;
+    }
+  });
+
+  return (
+    <Float speed={2.5} rotationIntensity={0.8} floatIntensity={1.2}>
+      <Torus ref={meshRef} args={[0.6, 0.2, 16, 32]} position={position}>
+        <meshStandardMaterial
+          color={color}
+          roughness={0.2}
+          metalness={0.9}
+          transparent
+          opacity={0.7}
+        />
+      </Torus>
+    </Float>
+  );
+};
+
+const GlowingBox = ({ position, color }: { position: [number, number, number]; color: string }) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.elapsedTime * 0.3;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.4;
+    }
+  });
+
+  return (
+    <Float speed={1.8} rotationIntensity={0.6} floatIntensity={0.9}>
+      <Box ref={meshRef} args={[0.8, 0.8, 0.8]} position={position}>
+        <MeshDistortMaterial
+          color={color}
+          attach="material"
+          distort={0.2}
+          speed={3}
+          roughness={0.3}
+          metalness={0.7}
+          transparent
+          opacity={0.6}
+        />
+      </Box>
+    </Float>
+  );
+};
+
+const ParticleField = () => {
+  const count = 100;
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 20;
+    }
+    return pos;
+  }, []);
+
+  const pointsRef = useRef<THREE.Points>(null);
+
+  useFrame((state) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02;
+      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.01;
+    }
+  });
+
+  return (
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={count}
+          array={positions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial size={0.05} color="#00D4D4" transparent opacity={0.6} sizeAttenuation />
+    </points>
+  );
+};
+
+const Scene = () => {
+  return (
+    <>
+      <ambientLight intensity={0.3} />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#00D4D4" />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#7C3AED" />
+      <spotLight position={[0, 10, 0]} intensity={0.8} color="#A78BFA" angle={0.3} />
+
+      <FloatingIcosahedron position={[-4, 2, -2]} color="#00D4D4" speed={0.8} />
+      <FloatingIcosahedron position={[4, -1, -3]} color="#7C3AED" speed={1.2} />
+      <FloatingSphere position={[-3, -2, -1]} color="#A78BFA" size={0.4} />
+      <FloatingSphere position={[3, 2, -2]} color="#00D4D4" size={0.6} />
+      <FloatingTorus position={[0, 3, -4]} color="#7C3AED" />
+      <GlowingBox position={[-2, 0, -3]} color="#00D4D4" />
+      <GlowingBox position={[2, -2, -2]} color="#A78BFA" />
+      <ParticleField />
+    </>
+  );
+};
+
+export const FloatingShapes3D = () => {
+  return (
+    <div className="absolute inset-0 z-0">
+      <Canvas
+        camera={{ position: [0, 0, 8], fov: 60 }}
+        dpr={[1, 2]}
+        gl={{ antialias: true, alpha: true }}
+      >
+        <Scene />
+      </Canvas>
+    </div>
+  );
+};
