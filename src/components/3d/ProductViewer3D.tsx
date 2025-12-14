@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
-import { Canvas, useFrame, ThreeEvent } from "@react-three/fiber";
-import { RoundedBox, Float, MeshDistortMaterial, Html, OrbitControls } from "@react-three/drei";
+import { useRef, useState, useCallback } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { RoundedBox, Float, MeshDistortMaterial, Html, OrbitControls, Billboard } from "@react-three/drei";
 import * as THREE from "three";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface HotspotProps {
   position: [number, number, number];
@@ -13,54 +13,86 @@ interface HotspotProps {
 }
 
 const Hotspot = ({ position, label, description, isActive, onHover }: HotspotProps) => {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
+  const outerRingRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 3) * 0.15);
+    const t = state.clock.elapsedTime;
+    if (ringRef.current) {
+      ringRef.current.scale.setScalar(1 + Math.sin(t * 2) * 0.1);
+    }
+    if (outerRingRef.current) {
+      outerRingRef.current.scale.setScalar(1.2 + Math.sin(t * 2 + 1) * 0.15);
+      outerRingRef.current.rotation.z = t * 0.5;
     }
   });
 
   return (
-    <group position={position}>
-      {/* Pulsing ring */}
-      <mesh
-        ref={meshRef}
-        onPointerEnter={() => onHover(label)}
-        onPointerLeave={() => onHover(null)}
-      >
-        <ringGeometry args={[0.06, 0.08, 32]} />
-        <meshBasicMaterial 
-          color={isActive ? "#00ff88" : "#00D4D4"} 
-          transparent 
-          opacity={isActive ? 1 : 0.7}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
-      
-      {/* Center dot */}
-      <mesh>
-        <circleGeometry args={[0.04, 32]} />
-        <meshBasicMaterial color={isActive ? "#00ff88" : "#00D4D4"} />
-      </mesh>
-      
-      {/* Tooltip */}
-      {isActive && (
-        <Html
-          position={[0, 0.2, 0]}
-          center
-          style={{
-            pointerEvents: 'none',
-            userSelect: 'none',
+    <Billboard position={position} follow={true} lockX={false} lockY={false} lockZ={false}>
+      <group>
+        {/* Invisible larger hit area for easier interaction */}
+        <mesh
+          onPointerOver={(e) => {
+            e.stopPropagation();
+            onHover(label);
+          }}
+          onPointerOut={(e) => {
+            e.stopPropagation();
+            onHover(null);
           }}
         >
-          <div className="bg-background/95 backdrop-blur-md border border-primary/30 rounded-lg px-3 py-2 min-w-[160px] shadow-lg shadow-primary/20">
-            <h5 className="text-primary font-semibold text-sm mb-1">{label}</h5>
-            <p className="text-muted-foreground text-xs leading-relaxed">{description}</p>
-          </div>
-        </Html>
-      )}
-    </group>
+          <circleGeometry args={[0.15, 32]} />
+          <meshBasicMaterial transparent opacity={0} />
+        </mesh>
+        
+        {/* Outer pulsing ring */}
+        <mesh ref={outerRingRef}>
+          <ringGeometry args={[0.08, 0.1, 32]} />
+          <meshBasicMaterial 
+            color={isActive ? "#00ff88" : "#00D4D4"} 
+            transparent 
+            opacity={isActive ? 0.6 : 0.3}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+        
+        {/* Inner ring */}
+        <mesh ref={ringRef}>
+          <ringGeometry args={[0.04, 0.06, 32]} />
+          <meshBasicMaterial 
+            color={isActive ? "#00ff88" : "#00D4D4"} 
+            transparent 
+            opacity={isActive ? 1 : 0.8}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+        
+        {/* Center dot */}
+        <mesh>
+          <circleGeometry args={[0.025, 32]} />
+          <meshBasicMaterial color={isActive ? "#00ff88" : "#00D4D4"} />
+        </mesh>
+        
+        {/* Tooltip */}
+        {isActive && (
+          <Html
+            position={[0, 0.25, 0]}
+            center
+            distanceFactor={5}
+            style={{
+              pointerEvents: 'none',
+              userSelect: 'none',
+              transition: 'opacity 0.2s ease',
+            }}
+          >
+            <div className="bg-background/95 backdrop-blur-md border border-primary/30 rounded-lg px-3 py-2 min-w-[180px] max-w-[220px] shadow-lg shadow-primary/20 animate-fade-in">
+              <h5 className="text-primary font-semibold text-sm mb-1">{label}</h5>
+              <p className="text-muted-foreground text-xs leading-relaxed">{description}</p>
+            </div>
+          </Html>
+        )}
+      </group>
+    </Billboard>
   );
 };
 
