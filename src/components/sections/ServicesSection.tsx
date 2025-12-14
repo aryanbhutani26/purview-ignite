@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { GlassCard, FeatureCard } from "../ui/GlassCard";
 import { FadeInText } from "../ui/AnimatedText";
-import { 
+import { ProductViewer3D } from "../3d/ProductViewer3D";
+import {
   Glasses, 
   Brain, 
   Smartphone, 
@@ -128,6 +129,16 @@ export const ServicesSection = () => {
               delay={index * 0.1}
             />
           ))}
+        </div>
+
+        {/* 3D Interactive Experience */}
+        <div className="mb-16 sm:mb-24">
+          <FadeInText delay={0.3}>
+            <h3 className="text-xl md:text-2xl font-bold text-center mb-8">
+              Interactive <span className="text-gradient">3D Experience</span>
+            </h3>
+          </FadeInText>
+          <ProductViewer3D />
         </div>
 
         {/* Compatible Devices */}
