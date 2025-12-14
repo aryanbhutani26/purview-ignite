@@ -1,8 +1,55 @@
-import { useRef, useState, useCallback } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useRef, useState, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { RoundedBox, Float, MeshDistortMaterial, Html, OrbitControls, Billboard } from "@react-three/drei";
 import * as THREE from "three";
 import { motion } from "framer-motion";
+import { Play, Pause, SkipForward } from "lucide-react";
+
+interface HotspotData {
+  position: [number, number, number];
+  label: string;
+  description: string;
+  cameraPosition: [number, number, number];
+}
+
+const HOTSPOTS: HotspotData[] = [
+  {
+    position: [1.35, 0.15, 0.2],
+    label: "HD Camera",
+    description: "12MP camera with AI-powered object recognition and real-time scene analysis",
+    cameraPosition: [3, 0.5, 2]
+  },
+  {
+    position: [-0.7, 0, 0.35],
+    label: "Left AR Display",
+    description: "Holographic micro-LED display with 2K resolution per eye",
+    cameraPosition: [-2, 0, 3]
+  },
+  {
+    position: [0.7, 0, 0.35],
+    label: "Right AR Display",
+    description: "Holographic micro-LED display with 2K resolution per eye",
+    cameraPosition: [2, 0, 3]
+  },
+  {
+    position: [1.33, 0, -0.6],
+    label: "Tech Module",
+    description: "Snapdragon XR2 processor with 8GB RAM and neural processing unit",
+    cameraPosition: [3, 0.5, -1]
+  },
+  {
+    position: [-1.2, -0.15, 0.2],
+    label: "Microphone",
+    description: "Dual noise-canceling mics with voice command recognition",
+    cameraPosition: [-3, -0.5, 2]
+  },
+  {
+    position: [1.35, -0.02, -0.35],
+    label: "Status LEDs",
+    description: "Smart indicators for battery, connection, and recording status",
+    cameraPosition: [3, 0, 0]
+  },
+];
 
 interface HotspotProps {
   position: [number, number, number];
@@ -96,6 +143,32 @@ const Hotspot = ({ position, label, description, isActive, onHover }: HotspotPro
   );
 };
 
+interface CameraControllerProps {
+  tourActive: boolean;
+  currentHotspotIndex: number;
+}
+
+const CameraController = ({ tourActive, currentHotspotIndex }: CameraControllerProps) => {
+  const { camera } = useThree();
+  const targetPosition = useRef(new THREE.Vector3(0, 0, 5));
+  const defaultPosition = new THREE.Vector3(0, 0, 5);
+  
+  useFrame((_, delta) => {
+    if (tourActive && currentHotspotIndex >= 0 && currentHotspotIndex < HOTSPOTS.length) {
+      const hotspot = HOTSPOTS[currentHotspotIndex];
+      targetPosition.current.set(...hotspot.cameraPosition);
+    } else {
+      targetPosition.current.copy(defaultPosition);
+    }
+    
+    // Smooth camera movement
+    camera.position.lerp(targetPosition.current, delta * 2);
+    camera.lookAt(0, 0, 0);
+  });
+
+  return null;
+};
+
 const SmartGlasses = ({ activeHotspot, onHotspotHover }: { activeHotspot: string | null; onHotspotHover: (label: string | null) => void }) => {
   const groupRef = useRef<THREE.Group>(null);
 
@@ -104,39 +177,6 @@ const SmartGlasses = ({ activeHotspot, onHotspotHover }: { activeHotspot: string
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
     }
   });
-
-  const hotspots = [
-    {
-      position: [1.35, 0.15, 0.2] as [number, number, number],
-      label: "HD Camera",
-      description: "12MP camera with AI-powered object recognition and real-time scene analysis"
-    },
-    {
-      position: [-0.7, 0, 0.35] as [number, number, number],
-      label: "AR Display",
-      description: "Holographic micro-LED display with 2K resolution per eye"
-    },
-    {
-      position: [0.7, 0, 0.35] as [number, number, number],
-      label: "AR Display",
-      description: "Holographic micro-LED display with 2K resolution per eye"
-    },
-    {
-      position: [1.33, 0, -0.6] as [number, number, number],
-      label: "Tech Module",
-      description: "Snapdragon XR2 processor with 8GB RAM and neural processing unit"
-    },
-    {
-      position: [-1.2, -0.15, 0.2] as [number, number, number],
-      label: "Microphone",
-      description: "Dual noise-canceling mics with voice command recognition"
-    },
-    {
-      position: [1.35, -0.02, -0.35] as [number, number, number],
-      label: "Status LEDs",
-      description: "Smart indicators for battery, connection, and recording status"
-    },
-  ];
 
   return (
     <Float speed={2} rotationIntensity={0.3} floatIntensity={0.5}>
@@ -166,7 +206,7 @@ const SmartGlasses = ({ activeHotspot, onHotspotHover }: { activeHotspot: string
             transparent 
             opacity={0.35}
             emissive="#00D4D4"
-            emissiveIntensity={activeHotspot === "AR Display" ? 0.8 : 0.4}
+            emissiveIntensity={activeHotspot?.includes("AR Display") ? 0.8 : 0.4}
           />
         </RoundedBox>
         
@@ -179,7 +219,7 @@ const SmartGlasses = ({ activeHotspot, onHotspotHover }: { activeHotspot: string
             transparent 
             opacity={0.35}
             emissive="#00D4D4"
-            emissiveIntensity={activeHotspot === "AR Display" ? 0.8 : 0.4}
+            emissiveIntensity={activeHotspot?.includes("AR Display") ? 0.8 : 0.4}
           />
         </RoundedBox>
         
@@ -245,7 +285,7 @@ const SmartGlasses = ({ activeHotspot, onHotspotHover }: { activeHotspot: string
         {/* LED status indicators */}
         <mesh position={[1.35, 0.02, -0.35]}>
           <sphereGeometry args={[0.025, 16, 16]} />
-          <meshBasicMaterial color={activeHotspot === "Status LEDs" ? "#00ff88" : "#00ff88"} />
+          <meshBasicMaterial color="#00ff88" />
         </mesh>
         <mesh position={[1.35, -0.05, -0.35]}>
           <sphereGeometry args={[0.02, 16, 16]} />
@@ -267,15 +307,15 @@ const SmartGlasses = ({ activeHotspot, onHotspotHover }: { activeHotspot: string
         {/* Subtle glow ring around lenses */}
         <mesh position={[-0.7, 0, 0.23]}>
           <ringGeometry args={[0.48, 0.52, 32]} />
-          <meshBasicMaterial color="#00D4D4" transparent opacity={activeHotspot === "AR Display" ? 0.4 : 0.15} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#00D4D4" transparent opacity={activeHotspot?.includes("AR Display") ? 0.4 : 0.15} side={THREE.DoubleSide} />
         </mesh>
         <mesh position={[0.7, 0, 0.23]}>
           <ringGeometry args={[0.48, 0.52, 32]} />
-          <meshBasicMaterial color="#00D4D4" transparent opacity={activeHotspot === "AR Display" ? 0.4 : 0.15} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#00D4D4" transparent opacity={activeHotspot?.includes("AR Display") ? 0.4 : 0.15} side={THREE.DoubleSide} />
         </mesh>
 
         {/* Interactive Hotspots */}
-        {hotspots.map((hotspot, index) => (
+        {HOTSPOTS.map((hotspot, index) => (
           <Hotspot
             key={index}
             position={hotspot.position}
@@ -323,7 +363,14 @@ const DataOrbs = () => {
   );
 };
 
-const Scene = ({ activeHotspot, onHotspotHover }: { activeHotspot: string | null; onHotspotHover: (label: string | null) => void }) => {
+interface SceneProps {
+  activeHotspot: string | null;
+  onHotspotHover: (label: string | null) => void;
+  tourActive: boolean;
+  currentHotspotIndex: number;
+}
+
+const Scene = ({ activeHotspot, onHotspotHover, tourActive, currentHotspotIndex }: SceneProps) => {
   return (
     <>
       <ambientLight intensity={0.4} />
@@ -331,13 +378,18 @@ const Scene = ({ activeHotspot, onHotspotHover }: { activeHotspot: string | null
       <pointLight position={[-5, -5, 5]} intensity={0.5} color="#7C3AED" />
       <spotLight position={[0, 5, 0]} intensity={0.8} color="#ffffff" angle={0.5} />
       
+      <CameraController 
+        tourActive={tourActive} 
+        currentHotspotIndex={currentHotspotIndex}
+      />
+      
       <SmartGlasses activeHotspot={activeHotspot} onHotspotHover={onHotspotHover} />
       <DataOrbs />
       
       <OrbitControls
         enableZoom={false}
         enablePan={false}
-        autoRotate
+        autoRotate={!tourActive}
         autoRotateSpeed={0.5}
         maxPolarAngle={Math.PI / 1.8}
         minPolarAngle={Math.PI / 2.5}
@@ -349,6 +401,77 @@ const Scene = ({ activeHotspot, onHotspotHover }: { activeHotspot: string | null
 export const ProductViewer3D = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
+  const [tourActive, setTourActive] = useState(false);
+  const [currentHotspotIndex, setCurrentHotspotIndex] = useState(-1);
+  const [tourProgress, setTourProgress] = useState(0);
+
+  // Auto-tour logic
+  useEffect(() => {
+    if (!tourActive) {
+      setCurrentHotspotIndex(-1);
+      setActiveHotspot(null);
+      return;
+    }
+
+    // Start tour from first hotspot
+    setCurrentHotspotIndex(0);
+    setActiveHotspot(HOTSPOTS[0].label);
+
+    const interval = setInterval(() => {
+      setCurrentHotspotIndex((prev) => {
+        const next = prev + 1;
+        if (next >= HOTSPOTS.length) {
+          setTourActive(false);
+          setActiveHotspot(null);
+          return -1;
+        }
+        setActiveHotspot(HOTSPOTS[next].label);
+        return next;
+      });
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [tourActive]);
+
+  // Progress bar animation
+  useEffect(() => {
+    if (!tourActive || currentHotspotIndex < 0) {
+      setTourProgress(0);
+      return;
+    }
+
+    setTourProgress(0);
+    const startTime = Date.now();
+    const duration = 3500;
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      setTourProgress(progress);
+      
+      if (progress < 1 && tourActive) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [currentHotspotIndex, tourActive]);
+
+  const handleSkip = () => {
+    if (currentHotspotIndex < HOTSPOTS.length - 1) {
+      const nextIndex = currentHotspotIndex + 1;
+      setCurrentHotspotIndex(nextIndex);
+      setActiveHotspot(HOTSPOTS[nextIndex].label);
+    } else {
+      setTourActive(false);
+    }
+  };
+
+  const handleHotspotHover = (label: string | null) => {
+    if (!tourActive) {
+      setActiveHotspot(label);
+    }
+  };
 
   return (
     <motion.div
@@ -368,31 +491,106 @@ export const ProductViewer3D = () => {
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
       >
-        <Scene activeHotspot={activeHotspot} onHotspotHover={setActiveHotspot} />
+        <Scene 
+          activeHotspot={activeHotspot} 
+          onHotspotHover={handleHotspotHover}
+          tourActive={tourActive}
+          currentHotspotIndex={currentHotspotIndex}
+        />
       </Canvas>
+      
+      {/* Tour Controls */}
+      <div className="absolute top-4 left-4 flex items-center gap-2">
+        <motion.button
+          onClick={() => setTourActive(!tourActive)}
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/90 hover:bg-primary text-primary-foreground text-sm font-medium backdrop-blur-sm transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {tourActive ? (
+            <>
+              <Pause className="w-4 h-4" />
+              <span>Pause Tour</span>
+            </>
+          ) : (
+            <>
+              <Play className="w-4 h-4" />
+              <span>Start Tour</span>
+            </>
+          )}
+        </motion.button>
+        
+        {tourActive && (
+          <motion.button
+            onClick={handleSkip}
+            className="flex items-center gap-1 px-3 py-2 rounded-full bg-background/60 hover:bg-background/80 text-foreground text-sm backdrop-blur-sm transition-colors"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <SkipForward className="w-4 h-4" />
+            <span>Skip</span>
+          </motion.button>
+        )}
+      </div>
+
+      {/* Tour Progress Indicator */}
+      {tourActive && currentHotspotIndex >= 0 && (
+        <div className="absolute top-16 left-4 right-4">
+          <div className="flex gap-1.5">
+            {HOTSPOTS.map((_, index) => (
+              <div
+                key={index}
+                className="flex-1 h-1 rounded-full bg-background/30 overflow-hidden"
+              >
+                <motion.div
+                  className="h-full bg-primary"
+                  initial={{ width: 0 }}
+                  animate={{
+                    width: index < currentHotspotIndex 
+                      ? "100%" 
+                      : index === currentHotspotIndex 
+                        ? `${tourProgress * 100}%` 
+                        : "0%"
+                  }}
+                  transition={{ duration: 0.1 }}
+                />
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted-foreground mt-2">
+            {currentHotspotIndex + 1} of {HOTSPOTS.length}: {HOTSPOTS[currentHotspotIndex]?.label}
+          </p>
+        </div>
+      )}
       
       {/* Overlay info */}
       <motion.div
         className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-primary/20"
         initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: isHovered ? 1 : 0.7, y: isHovered ? 0 : 5 }}
+        animate={{ opacity: isHovered || tourActive ? 1 : 0.7, y: isHovered || tourActive ? 0 : 5 }}
         transition={{ duration: 0.3 }}
       >
         <h4 className="text-lg font-semibold text-foreground">Smart AR Glasses</h4>
         <p className="text-sm text-muted-foreground">
-          {activeHotspot 
-            ? `Viewing: ${activeHotspot}` 
-            : "Hover over glowing points to explore features • Drag to rotate"}
+          {tourActive 
+            ? `Tour Mode: ${activeHotspot || 'Starting...'}` 
+            : activeHotspot 
+              ? `Viewing: ${activeHotspot}` 
+              : "Start a guided tour or hover over glowing points to explore"}
         </p>
       </motion.div>
 
       {/* Feature legend */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span>Interactive points</span>
+      {!tourActive && (
+        <div className="absolute top-4 right-4 flex flex-col gap-2">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span>Interactive points</span>
+          </div>
         </div>
-      </div>
+      )}
     </motion.div>
   );
 };
