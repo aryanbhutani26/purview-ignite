@@ -1,10 +1,70 @@
 import { useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { RoundedBox, Float, MeshDistortMaterial, Text, OrbitControls } from "@react-three/drei";
+import { Canvas, useFrame, ThreeEvent } from "@react-three/fiber";
+import { RoundedBox, Float, MeshDistortMaterial, Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-const SmartGlasses = () => {
+interface HotspotProps {
+  position: [number, number, number];
+  label: string;
+  description: string;
+  isActive: boolean;
+  onHover: (label: string | null) => void;
+}
+
+const Hotspot = ({ position, label, description, isActive, onHover }: HotspotProps) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 3) * 0.15);
+    }
+  });
+
+  return (
+    <group position={position}>
+      {/* Pulsing ring */}
+      <mesh
+        ref={meshRef}
+        onPointerEnter={() => onHover(label)}
+        onPointerLeave={() => onHover(null)}
+      >
+        <ringGeometry args={[0.06, 0.08, 32]} />
+        <meshBasicMaterial 
+          color={isActive ? "#00ff88" : "#00D4D4"} 
+          transparent 
+          opacity={isActive ? 1 : 0.7}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+      
+      {/* Center dot */}
+      <mesh>
+        <circleGeometry args={[0.04, 32]} />
+        <meshBasicMaterial color={isActive ? "#00ff88" : "#00D4D4"} />
+      </mesh>
+      
+      {/* Tooltip */}
+      {isActive && (
+        <Html
+          position={[0, 0.2, 0]}
+          center
+          style={{
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        >
+          <div className="bg-background/95 backdrop-blur-md border border-primary/30 rounded-lg px-3 py-2 min-w-[160px] shadow-lg shadow-primary/20">
+            <h5 className="text-primary font-semibold text-sm mb-1">{label}</h5>
+            <p className="text-muted-foreground text-xs leading-relaxed">{description}</p>
+          </div>
+        </Html>
+      )}
+    </group>
+  );
+};
+
+const SmartGlasses = ({ activeHotspot, onHotspotHover }: { activeHotspot: string | null; onHotspotHover: (label: string | null) => void }) => {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -12,6 +72,39 @@ const SmartGlasses = () => {
       groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.2;
     }
   });
+
+  const hotspots = [
+    {
+      position: [1.35, 0.15, 0.2] as [number, number, number],
+      label: "HD Camera",
+      description: "12MP camera with AI-powered object recognition and real-time scene analysis"
+    },
+    {
+      position: [-0.7, 0, 0.35] as [number, number, number],
+      label: "AR Display",
+      description: "Holographic micro-LED display with 2K resolution per eye"
+    },
+    {
+      position: [0.7, 0, 0.35] as [number, number, number],
+      label: "AR Display",
+      description: "Holographic micro-LED display with 2K resolution per eye"
+    },
+    {
+      position: [1.33, 0, -0.6] as [number, number, number],
+      label: "Tech Module",
+      description: "Snapdragon XR2 processor with 8GB RAM and neural processing unit"
+    },
+    {
+      position: [-1.2, -0.15, 0.2] as [number, number, number],
+      label: "Microphone",
+      description: "Dual noise-canceling mics with voice command recognition"
+    },
+    {
+      position: [1.35, -0.02, -0.35] as [number, number, number],
+      label: "Status LEDs",
+      description: "Smart indicators for battery, connection, and recording status"
+    },
+  ];
 
   return (
     <Float speed={2} rotationIntensity={0.3} floatIntensity={0.5}>
@@ -41,7 +134,7 @@ const SmartGlasses = () => {
             transparent 
             opacity={0.35}
             emissive="#00D4D4"
-            emissiveIntensity={0.4}
+            emissiveIntensity={activeHotspot === "AR Display" ? 0.8 : 0.4}
           />
         </RoundedBox>
         
@@ -54,7 +147,7 @@ const SmartGlasses = () => {
             transparent 
             opacity={0.35}
             emissive="#00D4D4"
-            emissiveIntensity={0.4}
+            emissiveIntensity={activeHotspot === "AR Display" ? 0.8 : 0.4}
           />
         </RoundedBox>
         
@@ -84,7 +177,13 @@ const SmartGlasses = () => {
           </RoundedBox>
           {/* Tech module housing */}
           <RoundedBox args={[0.2, 0.18, 0.35]} radius={0.04} position={[0.08, 0.02, -0.6]} rotation={[0, -0.05, 0]}>
-            <meshStandardMaterial color="#0d0d1a" metalness={0.85} roughness={0.15} />
+            <meshStandardMaterial 
+              color="#0d0d1a" 
+              metalness={0.85} 
+              roughness={0.15}
+              emissive={activeHotspot === "Tech Module" ? "#7C3AED" : "#000000"}
+              emissiveIntensity={activeHotspot === "Tech Module" ? 0.3 : 0}
+            />
           </RoundedBox>
           <RoundedBox args={[0.12, 0.1, 0.6]} radius={0.03} position={[0.05, 0, -1.0]} rotation={[0, -0.05, 0]}>
             <meshStandardMaterial color="#1a1a2e" metalness={0.9} roughness={0.1} />
@@ -98,7 +197,13 @@ const SmartGlasses = () => {
         {/* Camera/sensor module on right side */}
         <mesh position={[1.3, 0.15, 0.1]}>
           <cylinderGeometry args={[0.06, 0.06, 0.08, 16]} />
-          <meshStandardMaterial color="#0a0a15" metalness={0.95} roughness={0.05} />
+          <meshStandardMaterial 
+            color="#0a0a15" 
+            metalness={0.95} 
+            roughness={0.05}
+            emissive={activeHotspot === "HD Camera" ? "#00ff88" : "#000000"}
+            emissiveIntensity={activeHotspot === "HD Camera" ? 0.5 : 0}
+          />
         </mesh>
         <mesh position={[1.3, 0.15, 0.15]}>
           <cylinderGeometry args={[0.04, 0.04, 0.02, 16]} />
@@ -108,28 +213,46 @@ const SmartGlasses = () => {
         {/* LED status indicators */}
         <mesh position={[1.35, 0.02, -0.35]}>
           <sphereGeometry args={[0.025, 16, 16]} />
-          <meshBasicMaterial color="#00ff88" />
+          <meshBasicMaterial color={activeHotspot === "Status LEDs" ? "#00ff88" : "#00ff88"} />
         </mesh>
         <mesh position={[1.35, -0.05, -0.35]}>
           <sphereGeometry args={[0.02, 16, 16]} />
-          <meshBasicMaterial color="#00D4D4" />
+          <meshBasicMaterial color={activeHotspot === "Status LEDs" ? "#ff4488" : "#00D4D4"} />
         </mesh>
         
         {/* Microphone pinhole */}
         <mesh position={[-1.2, -0.15, 0.15]}>
           <cylinderGeometry args={[0.015, 0.015, 0.05, 8]} />
-          <meshStandardMaterial color="#0a0a15" metalness={0.9} roughness={0.1} />
+          <meshStandardMaterial 
+            color="#0a0a15" 
+            metalness={0.9} 
+            roughness={0.1}
+            emissive={activeHotspot === "Microphone" ? "#00D4D4" : "#000000"}
+            emissiveIntensity={activeHotspot === "Microphone" ? 0.5 : 0}
+          />
         </mesh>
         
         {/* Subtle glow ring around lenses */}
         <mesh position={[-0.7, 0, 0.23]}>
           <ringGeometry args={[0.48, 0.52, 32]} />
-          <meshBasicMaterial color="#00D4D4" transparent opacity={0.15} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#00D4D4" transparent opacity={activeHotspot === "AR Display" ? 0.4 : 0.15} side={THREE.DoubleSide} />
         </mesh>
         <mesh position={[0.7, 0, 0.23]}>
           <ringGeometry args={[0.48, 0.52, 32]} />
-          <meshBasicMaterial color="#00D4D4" transparent opacity={0.15} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#00D4D4" transparent opacity={activeHotspot === "AR Display" ? 0.4 : 0.15} side={THREE.DoubleSide} />
         </mesh>
+
+        {/* Interactive Hotspots */}
+        {hotspots.map((hotspot, index) => (
+          <Hotspot
+            key={index}
+            position={hotspot.position}
+            label={hotspot.label}
+            description={hotspot.description}
+            isActive={activeHotspot === hotspot.label}
+            onHover={onHotspotHover}
+          />
+        ))}
       </group>
     </Float>
   );
@@ -168,7 +291,7 @@ const DataOrbs = () => {
   );
 };
 
-const Scene = () => {
+const Scene = ({ activeHotspot, onHotspotHover }: { activeHotspot: string | null; onHotspotHover: (label: string | null) => void }) => {
   return (
     <>
       <ambientLight intensity={0.4} />
@@ -176,7 +299,7 @@ const Scene = () => {
       <pointLight position={[-5, -5, 5]} intensity={0.5} color="#7C3AED" />
       <spotLight position={[0, 5, 0]} intensity={0.8} color="#ffffff" angle={0.5} />
       
-      <SmartGlasses />
+      <SmartGlasses activeHotspot={activeHotspot} onHotspotHover={onHotspotHover} />
       <DataOrbs />
       
       <OrbitControls
@@ -193,6 +316,7 @@ const Scene = () => {
 
 export const ProductViewer3D = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
   return (
     <motion.div
@@ -212,7 +336,7 @@ export const ProductViewer3D = () => {
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
       >
-        <Scene />
+        <Scene activeHotspot={activeHotspot} onHotspotHover={setActiveHotspot} />
       </Canvas>
       
       {/* Overlay info */}
@@ -223,8 +347,20 @@ export const ProductViewer3D = () => {
         transition={{ duration: 0.3 }}
       >
         <h4 className="text-lg font-semibold text-foreground">Smart AR Glasses</h4>
-        <p className="text-sm text-muted-foreground">Interactive 3D Preview • Drag to rotate</p>
+        <p className="text-sm text-muted-foreground">
+          {activeHotspot 
+            ? `Viewing: ${activeHotspot}` 
+            : "Hover over glowing points to explore features • Drag to rotate"}
+        </p>
       </motion.div>
+
+      {/* Feature legend */}
+      <div className="absolute top-4 right-4 flex flex-col gap-2">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span>Interactive points</span>
+        </div>
+      </div>
     </motion.div>
   );
 };
