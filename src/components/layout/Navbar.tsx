@@ -196,7 +196,7 @@ export const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <motion.div
-              className="absolute right-0 top-0 bottom-0 w-80 bg-card/95 backdrop-blur-xl border-l border-border/50 p-6 pt-24"
+              className="absolute right-0 top-0 bottom-0 w-full max-w-[280px] sm:max-w-[320px] bg-card/95 backdrop-blur-xl border-l border-border/50 p-4 sm:p-6 pt-20 sm:pt-24"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}

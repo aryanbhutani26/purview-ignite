@@ -500,22 +500,23 @@ export const ProductViewer3D = () => {
       </Canvas>
       
       {/* Tour Controls */}
-      <div className="absolute top-4 left-4 flex items-center gap-2">
+      <div className="absolute top-3 sm:top-4 left-3 sm:left-4 flex items-center gap-2">
         <motion.button
           onClick={() => setTourActive(!tourActive)}
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/90 hover:bg-primary text-primary-foreground text-sm font-medium backdrop-blur-sm transition-colors"
+          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-full bg-primary/90 hover:bg-primary text-primary-foreground text-xs sm:text-sm font-medium backdrop-blur-sm transition-colors"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           {tourActive ? (
             <>
-              <Pause className="w-4 h-4" />
-              <span>Pause Tour</span>
+              <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden xs:inline">Pause</span>
+              <span className="xs:hidden">⏸</span>
             </>
           ) : (
             <>
-              <Play className="w-4 h-4" />
-              <span>Start Tour</span>
+              <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Tour</span>
             </>
           )}
         </motion.button>
@@ -523,22 +524,22 @@ export const ProductViewer3D = () => {
         {tourActive && (
           <motion.button
             onClick={handleSkip}
-            className="flex items-center gap-1 px-3 py-2 rounded-full bg-background/60 hover:bg-background/80 text-foreground text-sm backdrop-blur-sm transition-colors"
+            className="flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-full bg-background/60 hover:bg-background/80 text-foreground text-xs sm:text-sm backdrop-blur-sm transition-colors"
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <SkipForward className="w-4 h-4" />
-            <span>Skip</span>
+            <SkipForward className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="hidden sm:inline">Skip</span>
           </motion.button>
         )}
       </div>
 
       {/* Tour Progress Indicator */}
       {tourActive && currentHotspotIndex >= 0 && (
-        <div className="absolute top-16 left-4 right-4">
-          <div className="flex gap-1.5">
+        <div className="absolute top-14 sm:top-16 left-3 sm:left-4 right-3 sm:right-4">
+          <div className="flex gap-1 sm:gap-1.5">
             {HOTSPOTS.map((_, index) => (
               <div
                 key={index}
@@ -559,32 +560,32 @@ export const ProductViewer3D = () => {
               </div>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground mt-2">
-            {currentHotspotIndex + 1} of {HOTSPOTS.length}: {HOTSPOTS[currentHotspotIndex]?.label}
+          <p className="text-[10px] sm:text-xs text-muted-foreground mt-1.5 sm:mt-2 truncate">
+            {currentHotspotIndex + 1}/{HOTSPOTS.length}: {HOTSPOTS[currentHotspotIndex]?.label}
           </p>
         </div>
       )}
       
       {/* Overlay info */}
       <motion.div
-        className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-primary/20"
+        className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 p-3 sm:p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-primary/20"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: isHovered || tourActive ? 1 : 0.7, y: isHovered || tourActive ? 0 : 5 }}
         transition={{ duration: 0.3 }}
       >
-        <h4 className="text-lg font-semibold text-foreground">Smart AR Glasses</h4>
-        <p className="text-sm text-muted-foreground">
+        <h4 className="text-base sm:text-lg font-semibold text-foreground">Smart AR Glasses</h4>
+        <p className="text-xs sm:text-sm text-muted-foreground">
           {tourActive 
-            ? `Tour Mode: ${activeHotspot || 'Starting...'}` 
+            ? `Tour: ${activeHotspot || 'Starting...'}` 
             : activeHotspot 
               ? `Viewing: ${activeHotspot}` 
-              : "Start a guided tour or hover over glowing points to explore"}
+              : "Start tour or tap points to explore"}
         </p>
       </motion.div>
 
-      {/* Feature legend */}
+      {/* Feature legend - hidden on very small screens */}
       {!tourActive && (
-        <div className="absolute top-4 right-4 flex flex-col gap-2">
+        <div className="absolute top-3 sm:top-4 right-3 sm:right-4 hidden sm:flex flex-col gap-2">
           <div className="flex items-center gap-2 text-xs text-muted-foreground bg-background/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span>Interactive points</span>

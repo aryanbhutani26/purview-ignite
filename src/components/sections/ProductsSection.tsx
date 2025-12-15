@@ -34,30 +34,30 @@ const products = [
 
 export const ProductsSection = () => {
   return (
-    <section id="products" className="py-24 relative overflow-hidden">
+    <section id="products" className="py-16 sm:py-24 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-secondary/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <FadeInText>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
+            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary/10 text-secondary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
               NEXABLE PRODUCTS
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               Our AR Assistive Aids Provide
               <br />
               <span className="text-gradient">Autonomy & Dignity</span>
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
               Empowering millions suffering with sensory losses through innovative AI XR solutions.
             </p>
           </FadeInText>
@@ -156,13 +156,13 @@ export const ProductsSection = () => {
 
         {/* Additional Products Teaser */}
         <motion.div
-          className="mt-12 text-center"
+          className="mt-8 sm:mt-12 text-center px-2"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             <span className="text-primary font-semibold">Coming Soon:</span> Future Assistive Products for Speech Loss, Dyslexia, Dementia & more
           </p>
         </motion.div>
