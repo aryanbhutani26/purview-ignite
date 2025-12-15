@@ -3,34 +3,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { MagneticButton } from "../ui/MagneticButton";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavItem {
   label: string;
   href: string;
-  children?: { label: string; href: string }[];
+  children?: { label: string; href: string; isRoute?: boolean }[];
 }
 
 const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
   { label: "About Us", href: "#about" },
   { 
-    label: "Industrial Solutions", 
-    href: "#solutions",
+    label: "Offerings", 
+    href: "#services",
     children: [
-      { label: "Field Service", href: "#solutions" },
-      { label: "Healthcare", href: "#solutions" },
-      { label: "Manufacturing", href: "#solutions" },
-      { label: "Defence", href: "#solutions" },
-    ]
-  },
-  { 
-    label: "Products", 
-    href: "#products",
-    children: [
-      { label: "SEVA", href: "#products" },
-      { label: "Maîtiri", href: "#products" },
-      { label: "Silenta", href: "#products" },
-      { label: "NexAble", href: "#products" },
+      { label: "Augmented Industrial Solutions", href: "/industrial-solutions", isRoute: true },
+      { label: "Augmented Assistive Aids", href: "/assistive-aids", isRoute: true },
+      { label: "Augmented Labs (AIXR)", href: "/augmented-labs", isRoute: true },
     ]
   },
   { label: "Contact Us", href: "#contact" },
@@ -40,6 +30,8 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,11 +41,19 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const id = href.replace("#", "");
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const handleNavigation = (href: string, isRoute?: boolean) => {
+    if (isRoute) {
+      navigate(href);
+    } else if (href.startsWith("#")) {
+      if (location.pathname !== "/") {
+        navigate("/" + href);
+      } else {
+        const id = href.replace("#", "");
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     }
     setIsMobileMenuOpen(false);
   };
@@ -78,7 +78,7 @@ export const Navbar = () => {
             className="flex items-center gap-3 group"
             onClick={(e) => {
               e.preventDefault();
-              scrollToSection("#home");
+              handleNavigation("#home");
             }}
             whileHover={{ scale: 1.02 }}
           >
@@ -120,7 +120,7 @@ export const Navbar = () => {
                 onMouseLeave={() => setActiveDropdown(null)}
               >
                 <button
-                  onClick={() => scrollToSection(item.href)}
+                  onClick={() => handleNavigation(item.href)}
                   className={cn(
                     "flex items-center gap-1 text-sm font-medium transition-colors",
                     "text-muted-foreground hover:text-primary"
@@ -139,7 +139,7 @@ export const Navbar = () => {
                 <AnimatePresence>
                   {item.children && activeDropdown === item.label && (
                     <motion.div
-                      className="absolute top-full left-0 mt-2 py-2 bg-card/95 backdrop-blur-xl rounded-xl border border-border/50 min-w-[180px] shadow-elevated"
+                      className="absolute top-full left-0 mt-2 py-2 bg-card/95 backdrop-blur-xl rounded-xl border border-border/50 min-w-[220px] shadow-elevated"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
@@ -148,7 +148,7 @@ export const Navbar = () => {
                       {item.children.map((child) => (
                         <button
                           key={child.label}
-                          onClick={() => scrollToSection(child.href)}
+                          onClick={() => handleNavigation(child.href, child.isRoute)}
                           className="block w-full text-left px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
                         >
                           {child.label}
@@ -166,7 +166,7 @@ export const Navbar = () => {
             <MagneticButton 
               variant="primary" 
               size="sm"
-              onClick={() => scrollToSection("#contact")}
+              onClick={() => handleNavigation("#contact")}
             >
               Get Started
             </MagneticButton>
@@ -204,19 +204,33 @@ export const Navbar = () => {
             >
               <div className="flex flex-col gap-4">
                 {navItems.map((item) => (
-                  <button
-                    key={item.label}
-                    onClick={() => scrollToSection(item.href)}
-                    className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
-                  >
-                    {item.label}
-                  </button>
+                  <div key={item.label}>
+                    <button
+                      onClick={() => !item.children && handleNavigation(item.href)}
+                      className="text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                    >
+                      {item.label}
+                    </button>
+                    {item.children && (
+                      <div className="ml-4 mt-2 space-y-2">
+                        {item.children.map((child) => (
+                          <button
+                            key={child.label}
+                            onClick={() => handleNavigation(child.href, child.isRoute)}
+                            className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1"
+                          >
+                            {child.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
                 <div className="pt-4 mt-4 border-t border-border/50">
                   <MagneticButton 
                     variant="primary" 
                     className="w-full"
-                    onClick={() => scrollToSection("#contact")}
+                    onClick={() => handleNavigation("#contact")}
                   >
                     Get Started
                   </MagneticButton>
