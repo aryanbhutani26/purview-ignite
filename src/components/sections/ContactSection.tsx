@@ -54,28 +54,28 @@ export const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-secondary/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
           <FadeInText>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
               GET IN TOUCH
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               Let's Build the <span className="text-gradient">Future Together</span>
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-2">
               Ready to transform your business with AI XR solutions? 
               Contact us for a consultation.
             </p>
@@ -209,12 +209,12 @@ export const ContactSection = () => {
             ))}
 
             {/* Map Placeholder */}
-            <GlassCard className="flex-1 min-h-[200px] relative overflow-hidden" hoverEffect={false}>
+            <GlassCard className="flex-1 min-h-[150px] sm:min-h-[200px] relative overflow-hidden" hoverEffect={false}>
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-primary/50 mx-auto mb-3" />
-                  <p className="text-muted-foreground text-sm">London, United Kingdom</p>
+                <div className="text-center p-4">
+                  <MapPin className="w-8 h-8 sm:w-12 sm:h-12 text-primary/50 mx-auto mb-2 sm:mb-3" />
+                  <p className="text-muted-foreground text-xs sm:text-sm">London, United Kingdom</p>
                   <p className="text-muted-foreground/60 text-xs mt-1">Global Operations</p>
                 </div>
               </div>
