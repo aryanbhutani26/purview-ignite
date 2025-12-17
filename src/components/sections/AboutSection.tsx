@@ -2,61 +2,58 @@ import { motion } from "framer-motion";
 import { FadeInText } from "../ui/AnimatedText";
 import { GlassCard } from "../ui/GlassCard";
 import { Target, Eye, Award, Users } from "lucide-react";
-import { HeroGlobe } from "../3d/HeroGlobe";
-const values = [{
-  icon: <Target className="w-6 h-6 text-primary/70" />,
-  title: "Mission",
-  description: "To transform how industries operate through intelligent AI XR solutions that enhance productivity and accessibility."
-}, {
-  icon: <Eye className="w-6 h-6 text-primary/70" />,
-  title: "Vision",
-  description: "A world where technology bridges gaps, empowers individuals, and creates seamless human-digital experiences."
-}, {
-  icon: <Award className="w-6 h-6 text-primary/70" />,
-  title: "Excellence",
-  description: "Committed to delivering cutting-edge solutions that exceed expectations and drive measurable outcomes."
-}, {
-  icon: <Users className="w-6 h-6 text-primary/70" />,
-  title: "Inclusion",
-  description: "Creating technology that's accessible to all, including assistive solutions for sensory impairments."
-}];
-const stats = [{
-  value: "2019",
-  label: "Founded"
-}, {
-  value: "50+",
-  label: "Enterprise Clients"
-}, {
-  value: "15+",
-  label: "Countries"
-}, {
-  value: "100%",
-  label: "Commitment"
-}];
+
+const values = [
+  {
+    icon: <Target className="w-5 h-5" />,
+    title: "Mission",
+    description: "To transform how industries operate through intelligent AI XR solutions that enhance productivity and accessibility."
+  }, 
+  {
+    icon: <Eye className="w-5 h-5" />,
+    title: "Vision",
+    description: "A world where technology bridges gaps, empowers individuals, and creates seamless human-digital experiences."
+  }, 
+  {
+    icon: <Award className="w-5 h-5" />,
+    title: "Excellence",
+    description: "Committed to delivering cutting-edge solutions that exceed expectations and drive measurable outcomes."
+  }, 
+  {
+    icon: <Users className="w-5 h-5" />,
+    title: "Inclusion",
+    description: "Creating technology that's accessible to all, including assistive solutions for sensory impairments."
+  }
+];
+
+const stats = [
+  { value: "2019", label: "Founded" },
+  { value: "50+", label: "Enterprise Clients" },
+  { value: "15+", label: "Countries" },
+  { value: "100%", label: "Commitment" }
+];
+
 export const AboutSection = () => {
-  return <section id="about" className="py-16 sm:py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/2 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-secondary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-primary/5 rounded-full blur-3xl" />
-      </div>
+  return (
+    <section id="about" className="py-20 sm:py-28 relative overflow-hidden bg-background">
+      {/* Subtle Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-16">
+        <div className="max-w-3xl mx-auto text-center mb-16">
           <FadeInText>
-            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary/10 text-secondary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
-              ABOUT US
+            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              About Us
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
-              Leading <span className="text-gradient">AI Innovation</span>
-              <br />in XR Solutions
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4 text-foreground tracking-tight">
+              Leading <span className="text-primary">AI Innovation</span> in XR Solutions
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto px-2">
+            <p className="text-muted-foreground text-lg">
               Purview Technologies is at the forefront of transforming industries through intelligent 
               AI XR solutions. We combine cutting-edge augmented reality with advanced artificial 
               intelligence to create experiences that empower both enterprises and individuals.
@@ -65,105 +62,91 @@ export const AboutSection = () => {
         </div>
 
         {/* Stats */}
-        <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-10 sm:mb-16" initial={{
-        opacity: 0,
-        y: 30
-      }} whileInView={{
-        opacity: 1,
-        y: 0
-      }} viewport={{
-        once: true
-      }} transition={{
-        duration: 0.6
-      }}>
-          {stats.map((stat, index) => <GlassCard key={index} className="p-4 sm:p-6 text-center" delay={index * 0.1}>
-              <motion.div className="text-2xl sm:text-4xl md:text-5xl font-bold text-gradient mb-1 sm:mb-2" initial={{
-            scale: 0.8
-          }} whileInView={{
-            scale: 1
-          }} viewport={{
-            once: true
-          }} transition={{
-            delay: 0.3 + index * 0.1,
-            type: "spring"
-          }}>
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16" 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {stats.map((stat, index) => (
+            <GlassCard key={index} className="p-6 text-center" delay={index * 0.1}>
+              <motion.div 
+                className="text-3xl sm:text-4xl font-semibold text-foreground mb-1"
+                initial={{ scale: 0.9 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + index * 0.1, type: "spring" }}
+              >
                 {stat.value}
               </motion.div>
-              <p className="text-muted-foreground text-xs sm:text-sm">{stat.label}</p>
-            </GlassCard>)}
+              <p className="text-muted-foreground text-sm">{stat.label}</p>
+            </GlassCard>
+          ))}
         </motion.div>
 
         {/* Values Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          {values.map((value, index) => <motion.div key={index} initial={{
-          opacity: 0,
-          y: 30
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          duration: 0.6,
-          delay: index * 0.15
-        }}>
-              <GlassCard className="p-5 sm:p-6 lg:p-8 h-full group" glowColor="purple">
-                <div className="flex items-start gap-3 sm:gap-5">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-secondary/20 to-primary/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <div className="text-secondary">{value.icon}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {values.map((value, index) => (
+            <motion.div 
+              key={index} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <GlassCard className="p-6 h-full group">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/15 transition-colors">
+                    <div className="text-primary">{value.icon}</div>
                   </div>
                   <div>
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-1 sm:mb-2 text-foreground group-hover:text-secondary transition-colors">
+                    <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
                       {value.title}
                     </h3>
-                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       {value.description}
                     </p>
                   </div>
                 </div>
               </GlassCard>
-            </motion.div>)}
+            </motion.div>
+          ))}
         </div>
 
-        {/* Global Presence with 3D Globe */}
+        {/* Global Presence */}
         <motion.div 
-          className="mt-12 sm:mt-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="mt-16"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <FadeInText>
-            <h3 className="text-xl sm:text-2xl font-bold text-center mb-6">
-              <span className="text-gradient">Global</span> Presence
+          <div className="text-center p-12 rounded-xl bg-muted/30 border border-border">
+            <h3 className="text-2xl sm:text-3xl font-semibold mb-4 text-foreground">
+              <span className="text-primary">Global</span> Presence
             </h3>
-          </FadeInText>
-          <div className="relative h-[300px] sm:h-[400px] rounded-2xl overflow-hidden glass-card">
-            <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-transparent to-transparent" />
-            <HeroGlobe className="w-full h-full" />
-            <div className="absolute bottom-4 left-4 right-4 text-center">
-              <p className="text-sm text-muted-foreground">
-                Serving clients across <span className="text-primary font-semibold">15+ countries</span> worldwide
-              </p>
-            </div>
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+              Serving clients across <span className="text-primary font-semibold">15+ countries</span> worldwide, 
+              delivering enterprise-grade AI XR solutions.
+            </p>
           </div>
         </motion.div>
 
         {/* CTA */}
-        <motion.div className="mt-12 sm:mt-16 text-center" initial={{
-        opacity: 0
-      }} whileInView={{
-        opacity: 1
-      }} viewport={{
-        once: true
-      }} transition={{
-        delay: 0.6
-      }}>
-          <p className="text-muted-foreground mb-6">
+        <motion.div 
+          className="mt-12 text-center" 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <p className="text-muted-foreground">
             We aim to solve both <span className="text-primary font-semibold">industry</span> and{" "}
-            <span className="text-secondary font-semibold">society</span> challenges with AI XR
+            <span className="text-primary font-semibold">society</span> challenges with AI XR
           </p>
         </motion.div>
       </div>
-    </section>;
+    </section>
+  );
 };

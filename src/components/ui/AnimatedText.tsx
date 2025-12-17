@@ -9,14 +9,14 @@ interface AnimatedTextProps {
 }
 
 const letterVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.03,
-      duration: 0.5,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      delay: i * 0.02,
+      duration: 0.4,
+      ease: "easeOut",
     },
   }),
 };
@@ -84,17 +84,16 @@ interface GradientTextProps {
   animate?: boolean;
 }
 
-export const GradientText = ({ children, className, animate = true }: GradientTextProps) => {
+export const GradientText = ({ children, className }: GradientTextProps) => {
   return (
-    <motion.span
+    <span
       className={cn(
-        "bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto]",
-        animate && "animate-gradient",
+        "text-primary",
         className
       )}
     >
       {children}
-    </motion.span>
+    </span>
   );
 };
 
@@ -112,10 +111,10 @@ export const FadeInText = ({
   direction = "up" 
 }: FadeInTextProps) => {
   const directionVariants = {
-    up: { y: 30 },
-    down: { y: -30 },
-    left: { x: 30 },
-    right: { x: -30 },
+    up: { y: 20 },
+    down: { y: -20 },
+    left: { x: 20 },
+    right: { x: -20 },
   };
 
   return (
@@ -132,9 +131,9 @@ export const FadeInText = ({
       }}
       viewport={{ once: true }}
       transition={{
-        duration: 0.6,
+        duration: 0.5,
         delay,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: "easeOut",
       }}
     >
       {children}

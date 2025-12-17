@@ -62,14 +62,14 @@ export const Navbar = () => {
     <>
       <motion.nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled 
-            ? "bg-background/80 backdrop-blur-xl border-b border-border/50 py-3" 
+            ? "bg-background/95 backdrop-blur-md border-b border-border py-4" 
             : "bg-transparent py-6"
         )}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo */}
@@ -82,29 +82,11 @@ export const Navbar = () => {
             }}
             whileHover={{ scale: 1.02 }}
           >
-            <div className="relative w-10 h-10">
-              <svg viewBox="0 0 40 40" className="w-full h-full">
-                <defs>
-                  <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="hsl(186 100% 42%)" />
-                    <stop offset="100%" stopColor="hsl(263 70% 50%)" />
-                  </linearGradient>
-                </defs>
-                {/* Stylized P with lines */}
-                <path
-                  d="M8 8 L32 8 M8 16 L28 16 M8 24 L24 24 M8 32 L20 32"
-                  stroke="url(#logoGradient)"
-                  strokeWidth="2.5"
-                  fill="none"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+              <span className="text-xl font-bold text-foreground tracking-tight">
                 PURVIEW
               </span>
-              <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+              <span className="text-[10px] tracking-[0.15em] text-muted-foreground uppercase">
                 Technologies
               </span>
             </div>
@@ -123,7 +105,7 @@ export const Navbar = () => {
                   onClick={() => handleNavigation(item.href)}
                   className={cn(
                     "flex items-center gap-1 text-sm font-medium transition-colors",
-                    "text-muted-foreground hover:text-primary"
+                    "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {item.label}
@@ -139,17 +121,17 @@ export const Navbar = () => {
                 <AnimatePresence>
                   {item.children && activeDropdown === item.label && (
                     <motion.div
-                      className="absolute top-full left-0 mt-2 py-2 bg-card/95 backdrop-blur-xl rounded-xl border border-border/50 min-w-[220px] shadow-elevated"
-                      initial={{ opacity: 0, y: 10 }}
+                      className="absolute top-full left-0 mt-3 py-2 bg-card rounded-lg border border-border min-w-[240px] shadow-soft"
+                      initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
+                      exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.2 }}
                     >
                       {item.children.map((child) => (
                         <button
                           key={child.label}
                           onClick={() => handleNavigation(child.href, child.isRoute)}
-                          className="block w-full text-left px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
+                          className="block w-full text-left px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                         >
                           {child.label}
                         </button>
@@ -192,11 +174,11 @@ export const Navbar = () => {
             exit={{ opacity: 0 }}
           >
             <div 
-              className="absolute inset-0 bg-background/80 backdrop-blur-xl"
+              className="absolute inset-0 bg-background/80 backdrop-blur-md"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <motion.div
-              className="absolute right-0 top-0 bottom-0 w-full max-w-[280px] sm:max-w-[320px] bg-card/95 backdrop-blur-xl border-l border-border/50 p-4 sm:p-6 pt-20 sm:pt-24"
+              className="absolute right-0 top-0 bottom-0 w-full max-w-[300px] bg-card border-l border-border p-6 pt-24"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -217,7 +199,7 @@ export const Navbar = () => {
                           <button
                             key={child.label}
                             onClick={() => handleNavigation(child.href, child.isRoute)}
-                            className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1"
+                            className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1"
                           >
                             {child.label}
                           </button>
@@ -226,7 +208,7 @@ export const Navbar = () => {
                     )}
                   </div>
                 ))}
-                <div className="pt-4 mt-4 border-t border-border/50">
+                <div className="pt-4 mt-4 border-t border-border">
                   <MagneticButton 
                     variant="primary" 
                     className="w-full"

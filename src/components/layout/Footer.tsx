@@ -31,14 +31,8 @@ const socialLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="relative bg-card/50 border-t border-border/50">
-      {/* Background Glow */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute bottom-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-secondary/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-16 relative z-10">
+    <footer className="relative bg-muted/30 border-t border-border">
+      <div className="container mx-auto px-4 sm:px-6 py-16 relative z-10">
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 lg:col-span-2">
@@ -49,26 +43,9 @@ export const Footer = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="relative w-10 h-10">
-                  <svg viewBox="0 0 40 40" className="w-full h-full">
-                    <defs>
-                      <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="hsl(186 100% 42%)" />
-                        <stop offset="100%" stopColor="hsl(263 70% 50%)" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M8 8 L32 8 M8 16 L28 16 M8 24 L24 24 M8 32 L20 32"
-                      stroke="url(#footerLogoGradient)"
-                      strokeWidth="2.5"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
                 <div className="flex flex-col">
-                  <span className="text-lg font-bold text-foreground">PURVIEW</span>
-                  <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">Technologies</span>
+                  <span className="text-xl font-bold text-foreground tracking-tight">PURVIEW</span>
+                  <span className="text-[10px] tracking-[0.15em] text-muted-foreground uppercase">Technologies</span>
                 </div>
               </div>
 
@@ -81,16 +58,16 @@ export const Footer = () => {
               <div className="space-y-3">
                 <a 
                   href="mailto:info@purviewtech.ai" 
-                  className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
+                  className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group"
                 >
-                  <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <Mail className="w-4 h-4" />
                   <span className="text-sm">info@purviewtech.ai</span>
                 </a>
                 <a 
                   href="tel:+442079460000" 
-                  className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
+                  className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group"
                 >
-                  <Phone className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <Phone className="w-4 h-4" />
                   <span className="text-sm">+44 207 946 0000</span>
                 </a>
                 <div className="flex items-start gap-3 text-muted-foreground">
@@ -116,7 +93,7 @@ export const Footer = () => {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                      className="text-muted-foreground hover:text-foreground transition-colors text-sm"
                     >
                       {link.label}
                     </a>
@@ -129,7 +106,7 @@ export const Footer = () => {
 
         {/* Bottom Bar */}
         <motion.div
-          className="mt-10 sm:mt-16 pt-6 sm:pt-8 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6"
+          className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -140,14 +117,14 @@ export const Footer = () => {
           </p>
 
           {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all hover:scale-110"
+                className="w-10 h-10 rounded-full bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-all"
                 aria-label={social.label}
               >
                 <social.icon className="w-4 h-4" />

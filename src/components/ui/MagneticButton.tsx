@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ReactNode, useRef } from "react";
 
@@ -24,7 +24,7 @@ export const MagneticButton = ({
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   
-  const springConfig = { damping: 15, stiffness: 150 };
+  const springConfig = { damping: 20, stiffness: 200 };
   const springX = useSpring(x, springConfig);
   const springY = useSpring(y, springConfig);
 
@@ -34,8 +34,8 @@ export const MagneticButton = ({
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    x.set((e.clientX - centerX) * 0.3);
-    y.set((e.clientY - centerY) * 0.3);
+    x.set((e.clientX - centerX) * 0.15);
+    y.set((e.clientY - centerY) * 0.15);
   };
 
   const handleMouseLeave = () => {
@@ -44,16 +44,16 @@ export const MagneticButton = ({
   };
 
   const variants = {
-    primary: "bg-gradient-to-r from-primary to-secondary text-primary-foreground hover:opacity-90",
-    secondary: "bg-secondary/20 text-secondary border border-secondary/50 hover:bg-secondary/30",
-    outline: "border-2 border-primary/50 text-primary hover:border-primary hover:bg-primary/10",
-    ghost: "text-foreground hover:bg-foreground/10",
+    primary: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-subtle hover:shadow-soft",
+    secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+    outline: "border border-border bg-transparent text-foreground hover:bg-muted hover:border-foreground/20",
+    ghost: "text-foreground hover:bg-muted",
   };
 
   const sizes = {
     sm: "px-4 py-2 text-sm",
-    md: "px-6 py-3 text-base",
-    lg: "px-8 py-4 text-lg",
+    md: "px-6 py-3 text-sm",
+    lg: "px-8 py-4 text-base",
   };
 
   const Component = href ? motion.a : motion.button;
@@ -63,9 +63,8 @@ export const MagneticButton = ({
     <Component
       ref={ref as any}
       className={cn(
-        "relative inline-flex items-center justify-center font-semibold rounded-full",
+        "relative inline-flex items-center justify-center font-medium rounded-lg",
         "transition-all duration-300 ease-out",
-        "overflow-hidden group",
         variants[variant],
         sizes[size],
         className
@@ -73,20 +72,10 @@ export const MagneticButton = ({
       style={{ x: springX, y: springY }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ y: -2 }}
+      whileTap={{ scale: 0.98 }}
       {...props}
     >
-      {/* Ripple Effect */}
-      <span className="absolute inset-0 overflow-hidden rounded-full">
-        <span className="absolute inset-0 bg-foreground/10 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
-      </span>
-      
-      {/* Glow Effect */}
-      {variant === "primary" && (
-        <span className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-secondary/50 blur-lg opacity-0 group-hover:opacity-50 transition-opacity duration-300 rounded-full" />
-      )}
-      
       <span className="relative z-10 flex items-center gap-2">
         {children}
       </span>
@@ -110,24 +99,19 @@ export const ScrollDownIndicator = ({ targetId, className }: ScrollDownIndicator
   return (
     <motion.button
       className={cn(
-        "flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors",
+        "flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors",
         className
       )}
       onClick={handleClick}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.5, duration: 0.6 }}
+      animate={{ y: [0, 6, 0] }}
+      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
     >
-      <span className="text-sm font-medium">Scroll Down</span>
-      <motion.div
-        className="w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2"
-        animate={{ y: [0, 5, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
-      >
+      <span className="text-xs font-medium tracking-wider uppercase">Scroll</span>
+      <motion.div className="w-5 h-8 rounded-full border border-current flex justify-center pt-1.5">
         <motion.div
-          className="w-1 h-2 bg-current rounded-full"
-          animate={{ opacity: [1, 0.3, 1], y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-1 h-1.5 bg-current rounded-full"
+          animate={{ opacity: [1, 0.3, 1], y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
         />
       </motion.div>
     </motion.button>
