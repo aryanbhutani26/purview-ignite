@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FadeInText } from "@/components/ui/AnimatedText";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { MagneticButton } from "@/components/ui/MagneticButton";
+import { PageTransition } from "@/components/ui/PageTransition";
 import { 
   Eye, 
   Ear, 
@@ -67,9 +69,14 @@ const stats = [
 ];
 
 export default function AssistiveAids() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+    <PageTransition>
+      <div className="min-h-screen bg-background text-foreground">
+        <Navbar />
       
       {/* Hero Section */}
       <section className="pt-32 pb-16 sm:pt-40 sm:pb-24 relative overflow-hidden">
@@ -305,7 +312,8 @@ export default function AssistiveAids() {
         </div>
       </section>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </PageTransition>
   );
 }
