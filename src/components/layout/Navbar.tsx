@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { MagneticButton } from "../ui/MagneticButton";
+import { ThemeToggle } from "../ui/ThemeToggle";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavItem {
@@ -143,8 +144,9 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* Theme Toggle & CTA Button */}
+          <div className="hidden lg:flex items-center gap-4">
+            <ThemeToggle />
             <MagneticButton 
               variant="primary" 
               size="sm"
@@ -154,13 +156,16 @@ export const Navbar = () => {
             </MagneticButton>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden text-foreground p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile: Theme Toggle & Menu Button */}
+          <div className="lg:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              className="text-foreground p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
