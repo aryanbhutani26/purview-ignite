@@ -1,23 +1,45 @@
 import { motion } from "framer-motion";
 import { MagneticButton, ScrollDownIndicator } from "../ui/MagneticButton";
 import { ArrowRight, Play } from "lucide-react";
+import { FloatingShapes3D } from "../3d/FloatingShapes";
+import { useEffect, useState } from "react";
 
 export const HeroSection = () => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkDarkMode = () => {
+      setIsDark(document.documentElement.classList.contains('dark'));
+    };
+    
+    checkDarkMode();
+    
+    const observer = new MutationObserver(checkDarkMode);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section 
       id="home" 
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-            backgroundSize: '48px 48px'
-          }}
-        />
-      </div>
+      {/* 3D Floating Shapes - Dark Mode Only */}
+      {isDark && <FloatingShapes3D />}
+
+      {/* Subtle Background Pattern - Light Mode */}
+      {!isDark && (
+        <div className="absolute inset-0 opacity-30">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
+              backgroundSize: '48px 48px'
+            }}
+          />
+        </div>
+      )}
 
       {/* Subtle Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
