@@ -65,6 +65,12 @@ export default {
           secondary: "hsl(var(--surface-secondary))",
           elevated: "hsl(var(--surface-elevated))",
         },
+        "cosmic-dark": "hsl(var(--cosmic-dark))",
+        "cosmic-deep": "hsl(var(--cosmic-deep))",
+        "neon-cyan": "hsl(var(--neon-cyan))",
+        "neon-purple": "hsl(var(--neon-purple))",
+        "neon-pink": "hsl(var(--neon-pink))",
+        "neon-blue": "hsl(var(--neon-blue))",
       },
       borderRadius: {
         lg: "var(--radius)",
