@@ -3,6 +3,27 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial, MeshWobbleMaterial, Sphere, Box, Torus, Icosahedron } from "@react-three/drei";
 import * as THREE from "three";
 
+interface ThemeColors {
+  primary: string;
+  secondary: string;
+  accent: string;
+  particles: string;
+}
+
+const lightColors: ThemeColors = {
+  primary: "#F97316",    // Orange
+  secondary: "#FB923C",  // Light orange
+  accent: "#FDBA74",     // Peach
+  particles: "#F97316",  // Orange particles
+};
+
+const darkColors: ThemeColors = {
+  primary: "#00D4D4",    // Cyan
+  secondary: "#7C3AED",  // Purple
+  accent: "#A78BFA",     // Light purple
+  particles: "#00D4D4",  // Cyan particles
+};
+
 const FloatingIcosahedron = ({ position, color, speed = 1 }: { position: [number, number, number]; color: string; speed?: number }) => {
   const meshRef = useRef<THREE.Mesh>(null);
 
@@ -111,7 +132,7 @@ const GlowingBox = ({ position, color }: { position: [number, number, number]; c
   );
 };
 
-const ParticleField = () => {
+const ParticleField = ({ color }: { color: string }) => {
   const count = 100;
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
@@ -142,32 +163,38 @@ const ParticleField = () => {
           itemSize={3}
         />
       </bufferGeometry>
-      <pointsMaterial size={0.05} color="#00D4D4" transparent opacity={0.6} sizeAttenuation />
+      <pointsMaterial size={0.05} color={color} transparent opacity={0.6} sizeAttenuation />
     </points>
   );
 };
 
-const Scene = () => {
+const Scene = ({ colors }: { colors: ThemeColors }) => {
   return (
     <>
       <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#00D4D4" />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#7C3AED" />
-      <spotLight position={[0, 10, 0]} intensity={0.8} color="#A78BFA" angle={0.3} />
+      <pointLight position={[10, 10, 10]} intensity={1} color={colors.primary} />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color={colors.secondary} />
+      <spotLight position={[0, 10, 0]} intensity={0.8} color={colors.accent} angle={0.3} />
 
-      <FloatingIcosahedron position={[-4, 2, -2]} color="#00D4D4" speed={0.8} />
-      <FloatingIcosahedron position={[4, -1, -3]} color="#7C3AED" speed={1.2} />
-      <FloatingSphere position={[-3, -2, -1]} color="#A78BFA" size={0.4} />
-      <FloatingSphere position={[3, 2, -2]} color="#00D4D4" size={0.6} />
-      <FloatingTorus position={[0, 3, -4]} color="#7C3AED" />
-      <GlowingBox position={[-2, 0, -3]} color="#00D4D4" />
-      <GlowingBox position={[2, -2, -2]} color="#A78BFA" />
-      <ParticleField />
+      <FloatingIcosahedron position={[-4, 2, -2]} color={colors.primary} speed={0.8} />
+      <FloatingIcosahedron position={[4, -1, -3]} color={colors.secondary} speed={1.2} />
+      <FloatingSphere position={[-3, -2, -1]} color={colors.accent} size={0.4} />
+      <FloatingSphere position={[3, 2, -2]} color={colors.primary} size={0.6} />
+      <FloatingTorus position={[0, 3, -4]} color={colors.secondary} />
+      <GlowingBox position={[-2, 0, -3]} color={colors.primary} />
+      <GlowingBox position={[2, -2, -2]} color={colors.accent} />
+      <ParticleField color={colors.particles} />
     </>
   );
 };
 
-export const FloatingShapes3D = () => {
+interface FloatingShapes3DProps {
+  theme?: 'light' | 'dark';
+}
+
+export const FloatingShapes3D = ({ theme = 'dark' }: FloatingShapes3DProps) => {
+  const colors = theme === 'light' ? lightColors : darkColors;
+  
   return (
     <div className="absolute inset-0 z-0">
       <Canvas
@@ -175,7 +202,7 @@ export const FloatingShapes3D = () => {
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
       >
-        <Scene />
+        <Scene colors={colors} />
       </Canvas>
     </div>
   );

@@ -25,21 +25,8 @@ export const HeroSection = () => {
       id="home" 
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* 3D Floating Shapes - Dark Mode Only */}
-      {isDark && <FloatingShapes3D />}
-
-      {/* Subtle Background Pattern - Light Mode */}
-      {!isDark && (
-        <div className="absolute inset-0 opacity-30">
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, hsl(var(--border)) 1px, transparent 0)`,
-              backgroundSize: '48px 48px'
-            }}
-          />
-        </div>
-      )}
+      {/* 3D Floating Shapes */}
+      <FloatingShapes3D theme={isDark ? 'dark' : 'light'} />
 
       {/* Subtle Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
