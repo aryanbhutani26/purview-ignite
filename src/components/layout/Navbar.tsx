@@ -14,13 +14,13 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
+  { label: "About Us", href: "/about" },
   { 
     label: "Offerings", 
     href: "#services",
     children: [
-      { label: "Augmented Industrial Solutions", href: "/industrial-solutions", isRoute: true },
-      { label: "Augmented Assistive Aids", href: "/assistive-aids", isRoute: true },
+      { label: "Industrial Solutions", href: "/industrial-solutions", isRoute: true },
+      { label: "Assistive Aids", href: "/assistive-aids", isRoute: true },
       { label: "Augmented Labs (AIXR)", href: "/augmented-labs", isRoute: true },
     ]
   },
@@ -43,7 +43,7 @@ export const Navbar = () => {
   }, []);
 
   const handleNavigation = (href: string, isRoute?: boolean) => {
-    if (isRoute) {
+    if (href === "/about" || isRoute) {
       navigate(href);
     } else if (href.startsWith("#")) {
       if (location.pathname !== "/") {
@@ -83,14 +83,19 @@ export const Navbar = () => {
             }}
             whileHover={{ scale: 1.02 }}
           >
-            <div className="flex flex-col">
+            <img 
+              src="/images/logo.png" 
+              alt="Purview Technologies" 
+              className="w-25 h-20 object-contain"
+            />
+            {/* <div className="flex flex-col">
               <span className="text-xl font-bold text-foreground tracking-tight">
                 PURVIEW
               </span>
               <span className="text-[10px] tracking-[0.15em] text-muted-foreground uppercase">
                 Technologies
               </span>
-            </div>
+            </div> */}
           </motion.a>
 
           {/* Desktop Navigation */}

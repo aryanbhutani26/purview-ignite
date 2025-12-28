@@ -35,9 +35,13 @@ const stats = [
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="py-20 sm:py-28 relative overflow-hidden bg-background">
-      {/* Subtle Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-muted/20 to-transparent" />
+    <section id="about" className="py-20 sm:py-28 relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-amber-950 dark:via-orange-950 dark:to-red-950">
+      {/* Warm Background Pattern */}
+      <div className="absolute inset-0 bg-gradient-to-b from-amber-500/5 via-orange-500/5 to-red-500/5" />
+      <div className="absolute inset-0 opacity-20" style={{
+        backgroundImage: `radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%), 
+                         radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.15) 0%, transparent 50%)`
+      }} />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}

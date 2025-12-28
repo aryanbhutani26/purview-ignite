@@ -42,23 +42,25 @@ export const GlassCard = ({
 };
 
 interface FeatureCardProps {
-  icon: ReactNode;
+  image: string;
   title: string;
   description: string;
   className?: string;
   delay?: number;
 }
 
-export const FeatureCard = ({ icon, title, description, className, delay = 0 }: FeatureCardProps) => {
+export const FeatureCard = ({ image, title, description, className, delay = 0 }: FeatureCardProps) => {
   return (
     <GlassCard 
       className={cn("p-6 group cursor-pointer", className)} 
       delay={delay}
     >
-      <div className="mb-4 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors duration-300">
-        <div className="text-primary">
-          {icon}
-        </div>
+      <div className="mb-4 w-16 h-16 rounded-lg overflow-hidden bg-primary/10 group-hover:bg-primary/15 transition-colors duration-300 border border-primary/20">
+        <img 
+          src={image} 
+          alt={title}
+          className="w-full h-full object-cover"
+        />
       </div>
       <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
         {title}
