@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const footerLinks = {
   company: [
-    { label: "About Us", href: "#about" },
+    { label: "About Us", href: "/about" },
     { label: "Careers", href: "#" },
     { label: "Contact", href: "#contact" },
     { label: "Blog", href: "#" },
@@ -30,6 +31,25 @@ const socialLinks = [
 ];
 
 export const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (href: string) => {
+    if (href === "/about") {
+      navigate(href);
+    } else if (href.startsWith("#")) {
+      if (location.pathname !== "/") {
+        navigate("/" + href);
+      } else {
+        const id = href.replace("#", "");
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    }
+  };
+
   return (
     <footer className="relative bg-muted/30 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 py-16 relative z-10">
@@ -43,6 +63,11 @@ export const Footer = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-3 mb-6">
+                <img 
+                  src="/images/logo.png" 
+                  alt="Purview Technologies" 
+                  className="w-10 h-10 object-contain"
+                />
                 <div className="flex flex-col">
                   <span className="text-xl font-bold text-foreground tracking-tight">PURVIEW</span>
                   <span className="text-[10px] tracking-[0.15em] text-muted-foreground uppercase">Technologies</span>
@@ -91,12 +116,12 @@ export const Footer = () => {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    <button
+                      onClick={() => handleNavigation(link.href)}
+                      className="text-muted-foreground hover:text-foreground transition-colors text-sm text-left"
                     >
                       {link.label}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>

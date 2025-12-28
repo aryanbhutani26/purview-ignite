@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { FadeInText } from "../ui/AnimatedText";
-import { ArrowUpRight } from "lucide-react";
+import { FullScreenScrollScale } from "../ui/FullScreenScrollScale";
+import { ArrowUpRight, Glasses, Volume2, Hand } from "lucide-react";
 
 const products = [
   {
@@ -11,6 +11,7 @@ const products = [
     link: "https://sevavision.com/",
     gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
     accentColor: "primary",
+    icon: <Glasses className="w-8 h-8" />
   },
   {
     id: "maitri",
@@ -20,6 +21,7 @@ const products = [
     link: "https://maitiri-92.web.app/",
     gradient: "from-purple-500/20 via-pink-500/20 to-rose-500/20",
     accentColor: "secondary",
+    icon: <Volume2 className="w-8 h-8" />
   },
   {
     id: "silenta",
@@ -29,50 +31,77 @@ const products = [
     link: "#",
     gradient: "from-emerald-500/20 via-teal-500/20 to-cyan-500/20",
     accentColor: "primary",
+    icon: <Hand className="w-8 h-8" />
   },
 ];
 
 export const ProductsSection = () => {
   return (
-    <section id="products" className="py-16 sm:py-24 relative overflow-hidden">
-      {/* Background Effects */}
+    <FullScreenScrollScale
+      backgroundColor="bg-gradient-to-br from-violet-100 via-purple-50 to-fuchsia-100 dark:from-violet-950 dark:via-purple-950 dark:to-fuchsia-950"
+      minScale={0.85}
+      maxScale={1}
+      backgroundMinScale={0.3}
+      backgroundMaxScale={1}
+    >
+      {/* Vibrant Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-secondary/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-0 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-violet-500/20 to-purple-500/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-0 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-fuchsia-500/20 to-pink-500/20 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-violet-500/5 via-transparent to-fuchsia-500/5" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10" id="products">
         {/* Section Header */}
         <div className="text-center mb-10 sm:mb-16">
-          <FadeInText>
-            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary/10 text-secondary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
-              NEXABLE PRODUCTS
-            </span>
-          </FadeInText>
-          <FadeInText delay={0.1}>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
-              Our AR Assistive Aids Provide
-              <br />
-              <span className="text-gradient">Autonomy & Dignity</span>
-            </h2>
-          </FadeInText>
-          <FadeInText delay={0.2}>
-            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto px-2">
-              Empowering millions suffering with sensory losses through innovative AI XR solutions.
-            </p>
-          </FadeInText>
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+            <span className="text-sm text-secondary font-medium">NEXABLE PRODUCTS</span>
+          </motion.div>
+          
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+          >
+            Our AR Assistive Aids Provide
+            <br />
+            <span className="text-gradient">Autonomy & Dignity</span>
+          </motion.h2>
+          
+          <motion.p
+            className="text-lg text-muted-foreground max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Empowering millions suffering with sensory losses through innovative AI XR solutions.
+          </motion.p>
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
           {products.map((product, index) => (
             <motion.div
               key={product.id}
               className="relative group"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: index * 0.2,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
             >
               {/* Card */}
               <div className={`
@@ -81,12 +110,24 @@ export const ProductsSection = () => {
                 border border-foreground/10
                 group-hover:border-${product.accentColor}/30
                 transition-all duration-500
-                group-hover:shadow-[0_0_40px_hsl(186_100%_42%/0.2)]
+                group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.2)]
+                backdrop-blur-sm
               `}>
+                {/* Product Icon */}
+                <motion.div 
+                  className="absolute top-4 right-4 w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-primary">
+                    {product.icon}
+                  </div>
+                </motion.div>
+
                 {/* Animated Background Pattern */}
                 <div className="absolute inset-0 opacity-30">
                   <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle at 50% 50%, hsl(186 100% 42% / 0.1) 0%, transparent 50%)`,
+                    backgroundImage: `radial-gradient(circle at 50% 50%, hsl(var(--primary) / 0.1) 0%, transparent 50%)`,
                     backgroundSize: '30px 30px',
                   }} />
                 </div>
@@ -95,6 +136,11 @@ export const ProductsSection = () => {
                 <motion.div
                   className={`absolute inset-0 bg-gradient-to-br ${product.gradient} opacity-0 group-hover:opacity-50 transition-opacity duration-500`}
                 />
+
+                {/* Subtle shine effect */}
+                <div className="absolute inset-0 rounded-2xl sm:rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                </div>
 
                 {/* Content */}
                 <div className="relative h-full flex flex-col justify-end p-5 sm:p-6 lg:p-8">
@@ -119,7 +165,7 @@ export const ProductsSection = () => {
                     </p>
 
                     {/* CTA Link */}
-                    <a
+                    <motion.a
                       href={product.link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -129,10 +175,12 @@ export const ProductsSection = () => {
                         hover:gap-4 transition-all duration-300
                         group/link
                       `}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
                       Know More
                       <ArrowUpRight className="w-5 h-5 group-hover/link:rotate-45 transition-transform duration-300" />
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
 
@@ -142,8 +190,8 @@ export const ProductsSection = () => {
                     <circle cx="100" cy="0" r="80" fill="url(#cornerGradient)" />
                     <defs>
                       <linearGradient id="cornerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="hsl(186 100% 42%)" />
-                        <stop offset="100%" stopColor="hsl(263 70% 50%)" />
+                        <stop offset="0%" stopColor="hsl(var(--primary))" />
+                        <stop offset="100%" stopColor="hsl(var(--secondary))" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -153,20 +201,21 @@ export const ProductsSection = () => {
           ))}
         </div>
 
-
         {/* Additional Products Teaser */}
         <motion.div
           className="mt-8 sm:mt-12 text-center px-2"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
         >
-          <p className="text-sm sm:text-base text-muted-foreground">
-            <span className="text-primary font-semibold">Coming Soon:</span> Future Assistive Products for Speech Loss, Dyslexia, Dementia & more
-          </p>
+          <div className="max-w-2xl mx-auto p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50">
+            <p className="text-sm sm:text-base text-muted-foreground">
+              <span className="text-primary font-semibold">Coming Soon:</span> Future Assistive Products for Speech Loss, Dyslexia, Dementia & more
+            </p>
+          </div>
         </motion.div>
       </div>
-    </section>
+    </FullScreenScrollScale>
   );
 };

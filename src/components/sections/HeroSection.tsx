@@ -65,7 +65,7 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            Empowering industries with intelligent AR solutions, accelerating learning with 3D models, 
+            Empowering industries with XR solutions(AR, MR, VR), accelerating learning with 3D models, 
             and enabling real-time field service documentation with smart glasses.
           </motion.p>
 

@@ -51,15 +51,15 @@ const industries = [
 
 export const IndustriesSection = () => {
   return (
-    <section id="solutions" className="py-16 sm:py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/20 to-background" />
+    <section id="solutions" className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-teal-50 via-green-50 to-emerald-50 dark:from-teal-950 dark:via-green-950 dark:to-emerald-950">
+      {/* Fresh Green Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-teal-500/5 via-green-500/5 to-emerald-500/5" />
       
       {/* Animated Grid */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
+      <div className="absolute inset-0 opacity-[0.03]" style={{
         backgroundImage: `
-          linear-gradient(hsl(186 100% 50%) 1px, transparent 1px),
-          linear-gradient(90deg, hsl(186 100% 50%) 1px, transparent 1px)
+          linear-gradient(rgba(20, 184, 166, 0.5) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(20, 184, 166, 0.5) 1px, transparent 1px)
         `,
         backgroundSize: '100px 100px',
       }} />

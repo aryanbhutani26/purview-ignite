@@ -3,10 +3,11 @@ import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ProductsSection } from "@/components/sections/ProductsSection";
-import { IndustriesSection } from "@/components/sections/IndustriesSection";
+// import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ClientsSection } from "@/components/sections/ClientsSection";
-import { AboutSection } from "@/components/sections/AboutSection";
+
 import { ContactSection } from "@/components/sections/ContactSection";
+import { PremiumShowcaseSection } from "@/components/sections/PremiumShowcaseSection";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
@@ -45,14 +46,16 @@ const Index = () => {
             <ServicesSection />
           </motion.div>
           
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+
+          {/* Premium Showcase Animations */}
+          {/* <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <AboutSection />
-          </motion.div>
+            <PremiumShowcaseSection />
+          </motion.div> */}
           
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -63,14 +66,14 @@ const Index = () => {
             <ProductsSection />
           </motion.div>
           
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <IndustriesSection />
-          </motion.div>
+          </motion.div> */}
           
           <motion.div
             initial={{ opacity: 0, y: 40 }}

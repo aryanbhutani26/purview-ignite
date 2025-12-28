@@ -54,11 +54,12 @@ export const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-24 relative overflow-hidden">
-      {/* Background Effects */}
+    <section id="contact" className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 dark:from-rose-950 dark:via-pink-950 dark:to-purple-950">
+      {/* Warm Pink/Purple Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-rose-500/15 to-pink-500/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-purple-500/15 to-fuchsia-500/15 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-rose-500/5 via-pink-500/5 to-purple-500/5" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
