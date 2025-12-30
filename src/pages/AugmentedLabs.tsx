@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FadeInText } from "@/components/ui/AnimatedText";
-import { GlassCard, FeatureCard } from "@/components/ui/GlassCard";
+import { GlassCard } from "@/components/ui/GlassCard";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { 
@@ -25,37 +25,37 @@ import { Link } from "react-router-dom";
 
 const researchAreas = [
   {
-    icon: <Atom className="w-8 h-8" />,
+    icon: <Atom className="w-6 h-6" />,
     title: "Extended Reality (XR)",
     description: "Pioneering research in AR, VR, and MR technologies to create immersive experiences that blur the line between physical and digital worlds.",
     tags: ["Spatial Computing", "Mixed Reality", "Holographics"],
   },
   {
-    icon: <Cpu className="w-8 h-8" />,
+    icon: <Cpu className="w-6 h-6" />,
     title: "Artificial Intelligence",
     description: "Developing cutting-edge AI models for computer vision, natural language processing, and predictive analytics in XR environments.",
     tags: ["Machine Learning", "Deep Learning", "Neural Networks"],
   },
   {
-    icon: <Network className="w-8 h-8" />,
+    icon: <Network className="w-6 h-6" />,
     title: "Edge Computing",
     description: "Building low-latency processing systems that enable real-time AR/AI experiences on wearable devices.",
     tags: ["IoT", "5G Integration", "Edge AI"],
   },
   {
-    icon: <Globe className="w-8 h-8" />,
+    icon: <Globe className="w-6 h-6" />,
     title: "Digital Twins",
     description: "Creating accurate virtual replicas of physical environments and systems for simulation and optimization.",
     tags: ["3D Mapping", "IoT Sensors", "Real-time Sync"],
   },
   {
-    icon: <Sparkles className="w-8 h-8" />,
-    title: "Generative AI",
+    icon: <Sparkles className="w-6 h-6" />,
+    title: "GenAI and GenAI Agents",
     description: "Exploring the frontiers of generative models for creating dynamic, context-aware XR content and experiences.",
     tags: ["LLMs", "Image Generation", "3D Synthesis"],
   },
   {
-    icon: <Binary className="w-8 h-8" />,
+    icon: <Binary className="w-6 h-6" />,
     title: "Quantum Computing",
     description: "Investigating quantum algorithms for complex optimization problems in AR/AI applications.",
     tags: ["Quantum ML", "Optimization", "Cryptography"],
@@ -182,7 +182,7 @@ export default function AugmentedLabs() {
               >
                 <GlassCard className="p-6 h-full group cursor-pointer" glowColor="cyan">
                   <div className="mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <div className="text-accent">{area.icon}</div>
+                    <div className="text-primary">{area.icon}</div>
                   </div>
                   <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
                     {area.title}
@@ -225,13 +225,25 @@ export default function AugmentedLabs() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {labServices.map((service, index) => (
-              <FeatureCard
+              <motion.div
                 key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                delay={index * 0.1}
-              />
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <GlassCard className="p-6 h-full group cursor-pointer" glowColor="cyan">
+                  <div className="mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <div className="text-primary">{service.icon}</div>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    {service.description}
+                  </p>
+                </GlassCard>
+              </motion.div>
             ))}
           </div>
         </div>

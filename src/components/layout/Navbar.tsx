@@ -20,8 +20,8 @@ const navItems: NavItem[] = [
     href: "#services",
     children: [
       { label: "Industrial Solutions", href: "/industrial-solutions", isRoute: true },
-      { label: "Assistive Aids", href: "/assistive-aids", isRoute: true },
-      { label: "Augmented Labs (AIXR)", href: "/augmented-labs", isRoute: true },
+      { label: "NexAble Assistive Aids", href: "/assistive-aids", isRoute: true },
+      { label: "AI XR Labs", href: "/augmented-labs", isRoute: true },
     ]
   },
   { label: "Contact Us", href: "#contact" },

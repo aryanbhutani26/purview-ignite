@@ -35,8 +35,8 @@ const products = [
   {
     id: "maitri",
     title: "Maîtiri",
-    subtitle: "Multi-Lingual Assistant for Travel and Retail",
-    description: "AI-powered voice assistant that supports multiple Indian languages for enhanced customer experience in malls, airports, and public spaces. Provides real-time information, navigation assistance, and service interaction.",
+    subtitle: "AR Assistive Aids for Hearing Loss ",
+    description: "AI AR Platform on smart glasses for the Low hearing and deaf community, enhancing their daily living experience by converting surrounding sound and speech in written text on AR lenses of smart glasses",
     link: "https://maitiri-92.web.app/",
     icon: <Globe className="w-12 h-12" />,
     gradient: "from-purple-500/20 via-pink-500/20 to-rose-500/20",

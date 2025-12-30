@@ -157,39 +157,7 @@ const About = () => {
           </div>
         </section>
 
-        {/* Global Presence Section */}
-        <section className="py-16 sm:py-24 relative bg-card/30">
-          <div className="container mx-auto px-4 sm:px-6">
-            <motion.div 
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <GlassCard className="p-12 max-w-4xl mx-auto">
-                <div className="flex justify-center mb-6">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <MapPin className="w-8 h-8 text-primary" />
-                  </div>
-                </div>
-                <h3 className="text-3xl sm:text-4xl font-semibold mb-6 text-foreground">
-                  <span className="text-primary">Global</span> Presence
-                </h3>
-                <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-                  Serving clients across <span className="text-primary font-semibold">15+ countries</span> worldwide, 
-                  delivering enterprise-grade AI XR solutions that transform industries and empower communities.
-                </p>
-                <div className="text-center">
-                  <p className="text-muted-foreground">
-                    We aim to solve both <span className="text-primary font-semibold">industry</span> and{" "}
-                    <span className="text-primary font-semibold">society</span> challenges with AI XR
-                  </p>
-                </div>
-              </GlassCard>
-            </motion.div>
-          </div>
-        </section>
+        
 
         <Footer />
       </div>

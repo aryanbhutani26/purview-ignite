@@ -49,7 +49,7 @@ export const ClientsSection = () => {
             </FadeInText>
             <FadeInText delay={0.1}>
               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold">
-                Our <span className="text-gradient">Clients</span>
+                Our <span className="text-gradient">Partners</span>
               </h2>
             </FadeInText>
           </div>
@@ -67,12 +67,12 @@ export const ClientsSection = () => {
         {/* Partners Section */}
         <div>
           <div className="text-center mb-8 sm:mb-12">
-            <FadeInText>
+            {/* <FadeInText>
               <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary/10 text-secondary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
                 MSDUK CERTIFIED
               </span>
-            </FadeInText>
-            <FadeInText delay={0.1}>
+            </FadeInText> */}
+            {/* <FadeInText delay={0.1}>
               <h2 className="text-xl sm:text-2xl md:text-4xl font-bold mb-2">
                 Certified Diversity-Owned Technology Company
               </h2>
@@ -81,7 +81,7 @@ export const ClientsSection = () => {
               <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-2">
                 Premier member of MSDUK - Technology Partners
               </p>
-            </FadeInText>
+            </FadeInText> */}
           </div>
 
           <motion.div

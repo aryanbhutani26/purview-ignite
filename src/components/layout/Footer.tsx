@@ -89,11 +89,11 @@ export const Footer = () => {
                   <span className="text-sm">info@purviewtech.ai</span>
                 </a>
                 <a 
-                  href="tel:+442079460000" 
+                  href="tel:+447780241774" 
                   className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group"
                 >
                   <Phone className="w-4 h-4" />
-                  <span className="text-sm">+44 207 946 0000</span>
+                  <span className="text-sm">+44 7780 241774</span>
                 </a>
                 <div className="flex items-start gap-3 text-muted-foreground">
                   <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />

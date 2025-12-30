@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Index from "./pages/Index";
 import About from "./pages/About";
+import Tour3D from "./pages/Tour3D";
 import NotFound from "./pages/NotFound";
 import IndustrialSolutions from "./pages/IndustrialSolutions";
 import AssistiveAids from "./pages/AssistiveAids";
@@ -23,6 +24,7 @@ const AnimatedRoutes = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Index />} />
         <Route path="/about" element={<About />} />
+        <Route path="/3d-tour" element={<Tour3D />} />
         <Route path="/industrial-solutions" element={<IndustrialSolutions />} />
         <Route path="/assistive-aids" element={<AssistiveAids />} />
         <Route path="/augmented-labs" element={<AugmentedLabs />} />
