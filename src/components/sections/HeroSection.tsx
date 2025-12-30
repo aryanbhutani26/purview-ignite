@@ -66,7 +66,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.6, delay: 0.5 }}
           >
             Empowering industries with XR solutions(AR, MR, VR), accelerating learning with 3D models, 
-            and enabling real-time field service documentation with smart glasses.
+            and enabling real-time field service documentation with smart devices.
           </motion.p>
 
           {/* CTA Buttons */}

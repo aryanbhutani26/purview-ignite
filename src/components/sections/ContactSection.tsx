@@ -42,8 +42,8 @@ export const ContactSection = () => {
     {
       icon: <Phone className="w-5 h-5" />,
       label: "Phone",
-      value: "+44 207 946 0000",
-      href: "tel:+442079460000",
+      value: "+44 7780 241774",
+      href: "tel:+447780241774",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
@@ -213,10 +213,10 @@ export const ContactSection = () => {
             <GlassCard className="flex-1 min-h-[150px] sm:min-h-[200px] relative overflow-hidden" hoverEffect={false}>
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-4">
-                  <MapPin className="w-8 h-8 sm:w-12 sm:h-12 text-primary/50 mx-auto mb-2 sm:mb-3" />
-                  <p className="text-muted-foreground text-xs sm:text-sm">London, United Kingdom</p>
-                  <p className="text-muted-foreground/60 text-xs mt-1">Global Operations</p>
+                <div className="text-center mt-60">
+                  <MapPin className="w-8 h-8 sm:w-12 sm:h-12 text-primary mx-auto mb-3 sm:mb-4" />
+                  <p className="text-foreground font-medium text-base sm:text-lg mb-2">London, United Kingdom</p>
+                  <p className="text-muted-foreground text-sm sm:text-base">Global Operations</p>
                 </div>
               </div>
               

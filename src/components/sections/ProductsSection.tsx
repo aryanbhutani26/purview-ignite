@@ -16,8 +16,8 @@ const products = [
   {
     id: "maitri",
     title: "Maîtiri",
-    subtitle: "Multi-Lingual Assistant for Travel and Retail",
-    description: "AI-powered voice assistant that supports multiple Indian languages for enhanced customer experience in malls, airports, and public spaces. Provides real-time information, navigation assistance, and service interaction.",
+    subtitle: "AR Assistive Aids for Hearing Loss ",
+    description: "AI AR Platform on smart glasses for the Low hearing and deaf community, enhancing their daily living experience by converting surrounding sound and speech in written text on AR lenses of smart glasses",
     link: "https://maitiri-92.web.app/",
     gradient: "from-purple-500/20 via-pink-500/20 to-rose-500/20",
     accentColor: "secondary",
@@ -53,7 +53,7 @@ export const ProductsSection = () => {
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10" id="products">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-16">
+        <div className="text-left mb-10 sm:mb-16">
           <motion.div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -72,13 +72,13 @@ export const ProductsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            Our AR Assistive Aids Provide
-            <br />
-            <span className="text-gradient">Autonomy & Dignity</span>
+           NexAble:
+            {/* <br /> */}
+            <span className="text-gradient"> Our augmented assistive aids provide autonomy and dignity</span>
           </motion.h2>
           
           <motion.p
-            className="text-lg text-muted-foreground max-w-3xl mx-auto"
+            className="text-lg text-muted-foreground max-w-3xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

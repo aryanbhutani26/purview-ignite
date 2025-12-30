@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { GlassCard } from "../ui/GlassCard";
 import { FadeInText } from "../ui/AnimatedText";
-import { ProductViewer3D } from "../3d/ProductViewer3D";
+import { useNavigate } from "react-router-dom";
 import {
   Glasses, 
   Brain, 
@@ -23,6 +23,15 @@ import {
   Package, 
   Building2 
 } from "lucide-react";
+
+interface Device {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  cta: string;
+  secondaryCta?: string;
+  tourLink?: string;
+}
 
 const industries = [
   {
@@ -98,12 +107,14 @@ const industries = [
 //   },
 // ];
 
-const devices = [
+const devices: Device[] = [
   {
     icon: <Glasses className="w-8 h-8" />,
     title: "Smart Glasses",
     description: "Experience augmented reality with our compatible smart glasses. Overlay digital information on the physical world.",
     cta: "View Compatible Models",
+    secondaryCta: "Get a tour",
+    tourLink: "/3d-tour",
   },
   {
     icon: <Smartphone className="w-8 h-8" />,
@@ -138,6 +149,8 @@ const devices = [
 ];
 
 export const ServicesSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="services" className="py-20 sm:py-28 relative overflow-hidden bg-gradient-to-br from-emerald-50 via-cyan-50 to-blue-50 dark:from-emerald-950 dark:via-cyan-950 dark:to-blue-950">
       {/* Vibrant Background Pattern */}
@@ -152,7 +165,7 @@ export const ServicesSection = () => {
         <div className="max-w-2xl mb-16">
           <FadeInText delay={0}>
             <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              Services
+              Platform Offerings
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
@@ -169,28 +182,9 @@ export const ServicesSection = () => {
           </FadeInText>
         </div>
 
-        {/* AI Services Grid
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-          {services.map((service, index) => (
-            <GlassCard 
-              key={index} 
-              className="p-6 group cursor-pointer"
-              delay={index * 0.1}
-            >
-              <div className="mb-4 w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors duration-300 border border-primary/20">
-                <div className="text-primary">{service.icon}</div>
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {service.description}
-              </p>
-            </GlassCard>
-          ))}
-        </div> */}
+        
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className=" mb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                   {industries.map((industry, index) => (
                     <motion.div
                       key={index}
@@ -238,15 +232,26 @@ export const ServicesSection = () => {
                   ))}
                 </div>
 
-        {/* 3D Interactive Experience */}
-        <div className="mb-24">
-          <FadeInText delay={0.3}>
-            <h3 className="text-2xl md:text-3xl font-semibold mb-8 text-foreground">
-              Interactive <span className="text-primary">3D Experience</span>
-            </h3>
-          </FadeInText>
-          <ProductViewer3D />
-        </div>
+        {/* AI Services Grid
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+          {services.map((service, index) => (
+            <GlassCard 
+              key={index} 
+              className="p-6 group cursor-pointer"
+              delay={index * 0.1}
+            >
+              <div className="mb-4 w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors duration-300 border border-primary/20">
+                <div className="text-primary">{service.icon}</div>
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors duration-300">
+                {service.title}
+              </h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {service.description}
+              </p>
+            </GlassCard>
+          ))}
+        </div> */}
 
         {/* Compatible Devices */}
         <div className="mb-12">
@@ -273,10 +278,25 @@ export const ServicesSection = () => {
               <p className="text-muted-foreground text-sm mb-4">
                 {device.description}
               </p>
-              <button className="text-primary text-sm font-medium hover:text-primary/80 transition-colors flex items-center gap-2">
-                {device.cta}
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              
+              {/* Buttons */}
+              <div className="space-y-2">
+                <button className="text-primary text-sm font-medium hover:text-primary/80 transition-colors flex items-center gap-2 w-full">
+                  {device.cta}
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                
+                {/* Show "Get a tour" button only for Smart Glasses */}
+                {device.secondaryCta && device.tourLink && (
+                  <button 
+                    onClick={() => navigate(device.tourLink)}
+                    className="text-primary text-sm font-medium hover:text-primary/80 transition-colors flex items-center gap-2 w-full bg-primary/10 hover:bg-primary/20 px-3 py-2 rounded-lg border border-primary/20"
+                  >
+                    {device.secondaryCta}
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
+              </div>
             </GlassCard>
           ))}
         </div>
