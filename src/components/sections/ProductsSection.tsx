@@ -11,7 +11,8 @@ const products = [
     link: "https://sevavision.com/",
     gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
     accentColor: "primary",
-    icon: <Glasses className="w-8 h-8" />
+    icon: <Glasses className="w-8 h-8" />,
+    image: "/images/products/seva.png"
   },
   {
     id: "maitri",
@@ -20,8 +21,9 @@ const products = [
     description: "AI AR Platform on smart glasses for the Low hearing and deaf community, enhancing their daily living experience by converting surrounding sound and speech in written text on AR lenses of smart glasses",
     link: "https://maitiri-92.web.app/",
     gradient: "from-purple-500/20 via-pink-500/20 to-rose-500/20",
-    accentColor: "secondary",
-    icon: <Volume2 className="w-8 h-8" />
+    accentColor: "primary",
+    icon: <Volume2 className="w-8 h-8" />,
+    image: "/images/products/maitri.png"
   },
   {
     id: "silenta",
@@ -31,7 +33,8 @@ const products = [
     link: "#",
     gradient: "from-emerald-500/20 via-teal-500/20 to-cyan-500/20",
     accentColor: "primary",
-    icon: <Hand className="w-8 h-8" />
+    icon: <Hand className="w-8 h-8" />,
+    image: "/images/products/silenta.png"
   },
 ];
 
@@ -113,13 +116,28 @@ export const ProductsSection = () => {
                 group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.2)]
                 backdrop-blur-sm
               `}>
-                {/* Product Icon */}
+                {/* Product Image Background - Top 40% */}
+                <div className="absolute top-0 left-0 right-0 h-[40%] overflow-hidden">
+                  <motion.img
+                    src={product.image}
+                    alt={product.title}
+                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                    initial={{ scale: 1.1, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 0.6 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                  />
+                  {/* Gradient overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" />
+                </div>
+
+                {/* Product Icon - Overlaid on image */}
                 <motion.div 
-                  className="absolute top-4 right-4 w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center"
+                  className="absolute top-4 right-4 w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center z-10"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className="text-primary">
+                  <div className="text-white drop-shadow-lg">
                     {product.icon}
                   </div>
                 </motion.div>
@@ -143,20 +161,20 @@ export const ProductsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className="relative h-full flex flex-col justify-end p-5 sm:p-6 lg:p-8">
-                  {/* Product Logo/Title */}
+                <div className="relative h-full flex flex-col justify-between p-5 sm:p-6 lg:p-8">
+                  {/* Product Logo/Title - Overlaid on image */}
                   <motion.div
-                    className="mb-auto pt-4 sm:pt-6 lg:pt-8"
-                    whileHover={{ scale: 1.05 }}
+                    className="pt-4 sm:pt-6 lg:pt-8 z-10"
+                    whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gradient mb-2">
+                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white drop-shadow-lg mb-2">
                       {product.title}
                     </h3>
                   </motion.div>
 
-                  {/* Product Info */}
-                  <div>
+                  {/* Product Info - Bottom section */}
+                  <div className="mt-auto">
                     <h4 className="text-base sm:text-lg lg:text-xl font-semibold text-foreground mb-2 sm:mb-3">
                       {product.subtitle}
                     </h4>
