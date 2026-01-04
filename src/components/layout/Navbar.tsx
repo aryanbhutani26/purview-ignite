@@ -21,7 +21,7 @@ const navItems: NavItem[] = [
     children: [
       { label: "Industrial Solutions", href: "/industrial-solutions", isRoute: true },
       { label: "NexAble Assistive Aids", href: "/assistive-aids", isRoute: true },
-      { label: "AI XR Labs", href: "/augmented-labs", isRoute: true },
+      { label: "AI XR Lab", href: "/augmented-labs", isRoute: true },
     ]
   },
   { label: "Contact Us", href: "#contact" },
@@ -137,9 +137,10 @@ export const Navbar = () => {
                         <button
                           key={child.label}
                           onClick={() => handleNavigation(child.href, child.isRoute)}
-                          className="block w-full text-left px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                          className="flex items-center gap-3 w-full text-left px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors group"
                         >
-                          {child.label}
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover:bg-primary transition-colors flex-shrink-0" />
+                          <span>{child.label}</span>
                         </button>
                       ))}
                     </motion.div>
@@ -209,9 +210,10 @@ export const Navbar = () => {
                           <button
                             key={child.label}
                             onClick={() => handleNavigation(child.href, child.isRoute)}
-                            className="block text-sm text-muted-foreground hover:text-foreground transition-colors py-1"
+                            className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors py-1 group"
                           >
-                            {child.label}
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary/60 group-hover:bg-primary transition-colors flex-shrink-0" />
+                            <span>{child.label}</span>
                           </button>
                         ))}
                       </div>

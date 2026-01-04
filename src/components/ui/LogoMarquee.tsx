@@ -14,39 +14,34 @@ interface LogoMarqueeProps {
 }
 
 export const LogoMarquee = ({ logos, className, speed = 30, reverse = false }: LogoMarqueeProps) => {
-  // Double the logos for seamless loop
+  // Create enough duplicates for seamless scrolling
   const duplicatedLogos = [...logos, ...logos];
 
   return (
-    <div className={cn("overflow-hidden relative", className)}>
+    <div className={cn("overflow-hidden relative w-full py-4", className)}>
       {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
       
-      <motion.div
-        className="flex items-center gap-16"
-        animate={{
-          x: reverse ? ["0%", "-50%"] : ["-50%", "0%"],
-        }}
-        transition={{
-          duration: speed,
-          repeat: Infinity,
-          ease: "linear",
+      <div 
+        className={`flex ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}
+        style={{
+          animationDuration: `${speed}s`,
         }}
       >
         {duplicatedLogos.map((logo, index) => (
           <div
             key={index}
-            className="flex-shrink-0 h-12 w-auto grayscale hover:grayscale-0 opacity-50 hover:opacity-100 transition-all duration-300 cursor-pointer"
+            className="flex-shrink-0 mx-8 h-12 w-32 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer"
           >
             <img
               src={logo.src}
               alt={logo.alt}
-              className="h-full w-auto object-contain filter brightness-0 invert"
+              className="max-h-full max-w-full object-contain"
             />
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };

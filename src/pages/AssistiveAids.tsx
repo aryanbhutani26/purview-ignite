@@ -31,6 +31,7 @@ const products = [
     icon: <Eye className="w-12 h-12" />,
     gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
     features: ["Voice-guided navigation", "Object recognition", "Text-to-speech", "Obstacle detection"],
+    image: "/images/products/seva.png"
   },
   {
     id: "maitri",
@@ -41,6 +42,7 @@ const products = [
     icon: <Globe className="w-12 h-12" />,
     gradient: "from-purple-500/20 via-pink-500/20 to-rose-500/20",
     features: ["15+ Indian languages", "Real-time translation", "Navigation assistance", "Service interaction"],
+    image: "/images/products/maitri.png"
   },
   {
     id: "silenta",
@@ -51,6 +53,7 @@ const products = [
     icon: <Hand className="w-12 h-12" />,
     gradient: "from-emerald-500/20 via-teal-500/20 to-cyan-500/20",
     features: ["Real-time recognition", "Two-way translation", "Multiple sign languages", "Educational tools"],
+    image: "/images/products/silenta.png"
   },
 ];
 
@@ -169,8 +172,18 @@ export default function AssistiveAids() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.15 }}
               >
-                <GlassCard className={`p-6 sm:p-8 bg-gradient-to-br ${product.gradient}`} glowColor="purple">
-                  <div className="grid md:grid-cols-2 gap-8 items-center">
+                <GlassCard className={`relative overflow-hidden bg-gradient-to-br ${product.gradient}`} glowColor="purple">
+                  {/* Product Image Background - Right side */}
+                  <div className="absolute top-0 right-0 w-[40%] h-full overflow-hidden opacity-20 group-hover:opacity-30 transition-opacity duration-500">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background/80" />
+                  </div>
+
+                  <div className="relative z-10 p-6 sm:p-8 grid md:grid-cols-2 gap-8 items-center">
                     <div>
                       <div className="mb-4 w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-primary">
                         {product.icon}

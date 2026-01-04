@@ -28,9 +28,9 @@ const imageCategories = [
   {
     title: "Assistive Products",
     images: [
-      { src: "/images/seva-glasses.jpg", alt: "SEVA Smart Glasses", description: "SEVA - Voice Assistant" },
-      { src: "/images/maitri-assistant.jpg", alt: "Maitri Multi-Language AI", description: "Maîtiri - Language Assistant" },
-      { src: "/images/silenta-sign-language.jpg", alt: "Silenta Sign Language AI", description: "Silenta - Sign Language" },
+      { src: "/images/products/seva.png", alt: "SEVA Smart Glasses", description: "SEVA - Voice Assistant" },
+      { src: "/images/products/maitri.png", alt: "Maitri Multi-Language AI", description: "Maîtiri - Language Assistant" },
+      { src: "/images/products/silenta.png", alt: "Silenta Sign Language AI", description: "Silenta - Sign Language" },
     ]
   },
   {

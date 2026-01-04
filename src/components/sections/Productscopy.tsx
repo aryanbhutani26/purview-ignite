@@ -11,7 +11,8 @@ const products = [
     link: "https://sevavision.com/",
     gradient: "from-cyan-500/20 via-blue-500/20 to-purple-500/20",
     accentColor: "primary",
-    icon: <Glasses className="w-8 h-8" />
+    icon: <Glasses className="w-8 h-8" />,
+    image: "/images/products/seva.png"
   },
   {
     id: "maitri",
@@ -21,7 +22,8 @@ const products = [
     link: "https://maitiri-92.web.app/",
     gradient: "from-purple-500/20 via-pink-500/20 to-rose-500/20",
     accentColor: "secondary",
-    icon: <Volume2 className="w-8 h-8" />
+    icon: <Volume2 className="w-8 h-8" />,
+    image: "/images/products/maitri.png"
   },
   {
     id: "silenta",
@@ -31,7 +33,8 @@ const products = [
     link: "#",
     gradient: "from-emerald-500/20 via-teal-500/20 to-cyan-500/20",
     accentColor: "primary",
-    icon: <Hand className="w-8 h-8" />
+    icon: <Hand className="w-8 h-8" />,
+    image: "/images/products/silenta.png"
   },
 ];
 
@@ -181,3 +184,36 @@ export const ProductsSection = () => {
     </section>
   );
 };
+
+
+
+// Partner Section 
+
+//  <div>
+//           <div className="text-center mb-8 sm:mb-12">
+//             {/* <FadeInText>
+//               <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-secondary/10 text-secondary text-xs sm:text-sm font-medium mb-3 sm:mb-4">
+//                 MSDUK CERTIFIED
+//               </span>
+//             </FadeInText> */}
+//             {/* <FadeInText delay={0.1}>
+//               <h2 className="text-xl sm:text-2xl md:text-4xl font-bold mb-2">
+//                 Certified Diversity-Owned Technology Company
+//               </h2>
+//             </FadeInText>
+//             <FadeInText delay={0.2}>
+//               <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-2">
+//                 Premier member of MSDUK - Technology Partners
+//               </p>
+//             </FadeInText> */}
+//           </div>
+
+//           <motion.div
+//             initial={{ opacity: 0 }}
+//             whileInView={{ opacity: 1 }}
+//             viewport={{ once: true }}
+//             transition={{ duration: 0.8, delay: 0.2 }}
+//           >
+//             <LogoMarquee logos={partnerLogos} speed={40} reverse />
+//           </motion.div>
+//         </div>

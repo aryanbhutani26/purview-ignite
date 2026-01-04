@@ -3,6 +3,7 @@ import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { ProductsSection } from "@/components/sections/ProductsSection";
+import { AugmentedLabsPreview } from "@/components/sections/AugmentedLabsPreview";
 // import { IndustriesSection } from "@/components/sections/IndustriesSection";
 import { ClientsSection } from "@/components/sections/ClientsSection";
 
@@ -64,6 +65,15 @@ const Index = () => {
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <ProductsSection />
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <AugmentedLabsPreview />
           </motion.div>
           
           {/* <motion.div

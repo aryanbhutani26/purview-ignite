@@ -163,7 +163,7 @@ export default function IndustrialSolutions() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
                 Transforming Industries with
                 <br />
-                <span className="text-gradient">AR + AI Innovation</span>
+                <span className="text-gradient">AI XR Innovation</span>
               </h1>
             </FadeInText>
             <FadeInText delay={0.2}>
