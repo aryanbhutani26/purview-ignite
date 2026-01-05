@@ -73,7 +73,7 @@ export const AugmentedLabsPreview = () => {
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="max-w-2xl mb-16">
           <FadeInText>
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
               AUGMENTED LABS (AIXR)
@@ -87,7 +87,7 @@ export const AugmentedLabsPreview = () => {
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg text-muted-foreground">
               Our R&D hub pushing the boundaries of AI and Extended Reality technologies. 
               From fundamental research to applied innovations, we're shaping the future of human-computer interaction.
             </p>
@@ -96,7 +96,7 @@ export const AugmentedLabsPreview = () => {
 
         {/* Research Areas Preview */}
         <div className="mb-16">
-          <div className="text-center mb-8">
+          <div className="mb-8">
             <h3 className="text-2xl sm:text-3xl font-bold mb-4">
               Research <span className="text-gradient">Focus Areas</span>
             </h3>
@@ -139,7 +139,7 @@ export const AugmentedLabsPreview = () => {
 
         {/* Lab Services Preview */}
         <div className="mb-12">
-          <div className="text-center mb-8">
+          <div className="mb-8">
             <h3 className="text-2xl sm:text-3xl font-bold mb-4">
               Lab <span className="text-gradient">Services</span>
             </h3>
