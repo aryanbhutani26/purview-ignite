@@ -36,36 +36,48 @@ const industries = [
     title: "Field Service",
     description: "Empower field technicians with AR-guided repairs, real-time remote expert assistance, and hands-free documentation.",
     benefits: ["30% faster resolution", "Reduced downtime", "First-time fix rates improved"],
+    image: "/images/industrial_solutions/fieldservice.png",
+    gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20"
   },
   {
     icon: <Stethoscope className="w-8 h-8" />,
     title: "Healthcare",
     description: "Transform patient care with AR-assisted surgeries, medical training simulations, and remote diagnostics.",
     benefits: ["Enhanced precision", "Reduced training time", "Better patient outcomes"],
+    image: "/images/industrial_solutions/healthcare.png",
+    gradient: "from-red-500/20 via-pink-500/20 to-rose-500/20"
   },
   {
     icon: <Factory className="w-8 h-8" />,
     title: "Manufacturing",
     description: "Streamline production with AR work instructions, quality inspections, and predictive maintenance overlays.",
     benefits: ["40% fewer errors", "Faster onboarding", "Real-time analytics"],
+    image: "/images/industrial_solutions/manufacturing.png",
+    gradient: "from-orange-500/20 via-amber-500/20 to-yellow-500/20"
   },
   {
     icon: <Shield className="w-8 h-8" />,
     title: "Defence & Aerospace",
     description: "Mission-critical AR solutions for training, maintenance, and tactical operations with highest security standards.",
     benefits: ["Enhanced situational awareness", "Secure communications", "Advanced training"],
+    image: "/images/industrial_solutions/aerospace.png",
+    gradient: "from-purple-500/20 via-violet-500/20 to-indigo-500/20"
   },
   {
     icon: <Building2 className="w-8 h-8" />,
     title: "Infrastructure",
     description: "Visualize complex systems, manage assets, and conduct remote inspections with AR-powered tools.",
     benefits: ["Improved safety", "Asset visibility", "Reduced travel costs"],
+    image: "/images/industrial_solutions/constructions.png",
+    gradient: "from-gray-500/20 via-slate-500/20 to-zinc-500/20"
   },
   {
     icon: <Truck className="w-8 h-8" />,
     title: "Logistics & Supply Chain",
     description: "Optimize warehouse operations, picking accuracy, and fleet management with AR guidance systems.",
     benefits: ["25% faster picking", "Error reduction", "Real-time tracking"],
+    image: "/images/industrial_solutions/logistics.png",
+    gradient: "from-green-500/20 via-emerald-500/20 to-teal-500/20"
   },
 ];
 
@@ -206,30 +218,102 @@ export default function IndustrialSolutions() {
             {industries.map((industry, index) => (
               <motion.div
                 key={index}
+                className="relative group"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
               >
-                <GlassCard className="p-6 h-full group cursor-pointer" glowColor="cyan">
-                  <div className="mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <div className="text-primary">{industry.icon}</div>
+                {/* Card with Background Image */}
+                <div className={`
+                  relative rounded-2xl sm:rounded-3xl overflow-hidden h-[400px] sm:h-[420px] lg:h-[450px]
+                  bg-gradient-to-br ${industry.gradient}
+                  border border-foreground/10
+                  group-hover:border-primary/30
+                  transition-all duration-500
+                  group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.2)]
+                  backdrop-blur-sm
+                `}>
+                  {/* Industry Image Background - Top 40% */}
+                  <div className="absolute top-0 left-0 right-0 h-[40%] overflow-hidden">
+                    <motion.img
+                      src={industry.image}
+                      alt={industry.title}
+                      className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                      initial={{ scale: 1.1, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 0.6 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: index * 0.1 }}
+                    />
+                    {/* Gradient overlay for better text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                    {industry.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    {industry.description}
-                  </p>
-                  <ul className="space-y-2">
-                    {industry.benefits.map((benefit, i) => (
-                      <li key={i} className="text-sm text-primary/80 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                        {benefit}
-                      </li>
-                    ))}
-                  </ul>
-                </GlassCard>
+
+                  {/* Industry Icon - Overlaid on image */}
+                  <motion.div 
+                    className="absolute top-4 right-4 w-16 h-16 sm:w-18 sm:h-18 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center z-10"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div className="text-white drop-shadow-lg">
+                      {industry.icon}
+                    </div>
+                  </motion.div>
+
+                  {/* Content */}
+                  <div className="relative h-full flex flex-col justify-between p-5 sm:p-6 lg:p-7">
+                    {/* Industry Title - Overlaid on image */}
+                    <motion.div
+                      className="pt-4 sm:pt-6 lg:pt-8 z-10"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white drop-shadow-lg mb-2">
+                        {industry.title}
+                      </h3>
+                    </motion.div>
+
+                    {/* Industry Info - Bottom section */}
+                    <div className="mt-auto">
+                      <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4">
+                        {industry.description}
+                      </p>
+                      
+                      {/* Benefits List */}
+                      <ul className="space-y-2 mb-4">
+                        {industry.benefits.map((benefit, i) => (
+                          <li key={i} className="text-sm text-primary/90 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                            <span>{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Learn More Link */}
+                      <motion.button
+                        className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-4 transition-all duration-300 group/link"
+                        whileHover={{ x: 5 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                      >
+                        Learn More
+                        <ArrowRight className="w-4 h-4 group-hover/link:rotate-45 transition-transform duration-300" />
+                      </motion.button>
+                    </div>
+                  </div>
+
+                  {/* Decorative Corner */}
+                  <div className="absolute top-0 right-0 w-24 h-24">
+                    <svg viewBox="0 0 100 100" className="w-full h-full opacity-10">
+                      <circle cx="100" cy="0" r="60" fill="url(#cornerGradient)" />
+                      <defs>
+                        <linearGradient id="cornerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="hsl(var(--primary))" />
+                          <stop offset="100%" stopColor="hsl(var(--secondary))" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

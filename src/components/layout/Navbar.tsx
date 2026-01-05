@@ -86,7 +86,7 @@ export const Navbar = () => {
             <img 
               src="/images/logo.png" 
               alt="Purview Technologies" 
-              className="w-25 h-20 object-contain"
+              className="w-32 h-24 object-contain"
             />
             {/* <div className="flex flex-col">
               <span className="text-xl font-bold text-foreground tracking-tight">

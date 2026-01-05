@@ -1,11 +1,31 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MagneticButton, ScrollDownIndicator } from "../ui/MagneticButton";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, ChevronUp, ChevronDown } from "lucide-react";
 import { FloatingShapes3D } from "../3d/FloatingShapes";
 import { useEffect, useState } from "react";
 
+const smartSolutions = [
+  {
+    title: "SmartCare",
+    description: "A cutting-edge AR smart glass solution for medical telepresence, SmartCare empowers remote clinical and surgical support, in-house patient care, EMR collaboration during critical golden hours, and immersive medical education. Designed to meet regulatory standards, it features real-time captioning and multilingual translation for silent, life-saving communication."
+  },
+  {
+    title: "SmartPick",
+    description: "SmartPick revolutionizes warehouse operations with AR smart glasses that replace traditional handheld devices for vision-based picking and packaging. It delivers real-time visualization and backend system updates, boosting accuracy and efficiency. RFID integration enables automated tracking and seamless inventory management."
+  },
+  {
+    title: "SmartInspect",
+    description: "SmartInspect is an AR-powered inspection tool that streamlines workflows and enables live collaboration with remote experts. Ideal for manufacturing, field services, construction, and aviation, it supports multilingual translation and captioning for global, sound-free teamwork."
+  },
+  {
+    title: "SmartSurveillance",
+    description: "SmartSurveillance offers advanced AR smart glass capabilities for controlling remote camera views via intuitive head movements. Perfect for navigating large machinery—such as earth movers, cranes, and rovers—and adaptable for drone-mounted surveillance. With AI vision model training, it proactively detects threats and triggers alerts for enhanced situational awareness."
+  }
+];
+
 export const HeroSection = () => {
   const [isDark, setIsDark] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const checkDarkMode = () => {
@@ -19,6 +39,10 @@ export const HeroSection = () => {
     
     return () => observer.disconnect();
   }, []);
+
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <section 
@@ -76,15 +100,57 @@ export const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <MagneticButton variant="primary" size="lg" className="w-full sm:w-auto">
-              Read More
-              <ArrowRight className="w-5 h-5" />
+            <MagneticButton 
+              variant="primary" 
+              size="lg" 
+              className="w-full sm:w-auto"
+              onClick={toggleExpanded}
+            >
+              {isExpanded ? 'Show Less' : 'Read More'}
+              {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ArrowRight className="w-5 h-5" />}
             </MagneticButton>
-            <MagneticButton variant="outline" size="lg" className="w-full sm:w-auto">
+            {/* <MagneticButton variant="outline" size="lg" className="w-full sm:w-auto">
               <Play className="w-5 h-5" />
               Watch Demo
-            </MagneticButton>
+            </MagneticButton> */}
           </motion.div>
+
+          {/* Expandable Content */}
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="mt-12 p-8 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50">
+                  <h3 className="text-2xl font-semibold mb-6 text-foreground">
+                    Our Smart Solutions Portfolio
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {smartSolutions.map((solution, index) => (
+                      <motion.div
+                        key={solution.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        className="p-6 rounded-xl bg-background/50 border border-border/30"
+                      >
+                        <h4 className="text-lg font-semibold mb-3 text-primary">
+                          {solution.title}
+                        </h4>
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {solution.description}
+                        </p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Stats */}
           <motion.div

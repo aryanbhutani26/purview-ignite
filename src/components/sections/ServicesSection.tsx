@@ -39,36 +39,48 @@ const industries = [
     title: "Field Service",
     description: "Remote assistance and real-time documentation for technicians in the field.",
     color: "from-cyan-500 to-blue-500",
+    image: "/images/industrial_solutions/fieldservice.png",
+    gradient: "from-blue-500/20 via-cyan-500/20 to-teal-500/20"
   },
   {
     icon: <Plane className="w-8 h-8" />,
     title: "Aerospace & Defence",
     description: "Mission-critical AR solutions for defense and aviation industries.",
     color: "from-purple-500 to-indigo-500",
+    image: "/images/industrial_solutions/aerospace.png",
+    gradient: "from-purple-500/20 via-violet-500/20 to-indigo-500/20"
   },
   {
     icon: <Heart className="w-8 h-8" />,
     title: "Healthcare",
     description: "AR-assisted surgery, training, and patient care solutions.",
     color: "from-rose-500 to-pink-500",
+    image: "/images/industrial_solutions/healthcare.png",
+    gradient: "from-red-500/20 via-pink-500/20 to-rose-500/20"
   },
   {
     icon: <Factory className="w-8 h-8" />,
     title: "Manufacturing",
     description: "Smart factory solutions with AR-guided assembly and quality control.",
     color: "from-amber-500 to-orange-500",
+    image: "/images/industrial_solutions/manufacturing.png",
+    gradient: "from-orange-500/20 via-amber-500/20 to-yellow-500/20"
   },
   {
     icon: <Package className="w-8 h-8" />,
     title: "Warehouse & Logistics",
     description: "AR-powered picking, packing, and inventory management systems.",
     color: "from-emerald-500 to-teal-500",
+    image: "/images/industrial_solutions/logistics.png",
+    gradient: "from-green-500/20 via-emerald-500/20 to-teal-500/20"
   },
   {
     icon: <Building2 className="w-8 h-8" />,
     title: "Construction & Oil & Gas",
     description: "Safety compliance and remote inspection for hazardous environments.",
     color: "from-slate-500 to-zinc-500",
+    image: "/images/industrial_solutions/constructions.png",
+    gradient: "from-gray-500/20 via-slate-500/20 to-zinc-500/20"
   },
 ];
 
@@ -184,53 +196,108 @@ export const ServicesSection = () => {
 
         
 
-        <div className=" mb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                  {industries.map((industry, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                    >
-                      <GlassCard 
-                        className="p-5 sm:p-6 lg:p-8 h-full group cursor-pointer" 
-                        glowColor="mixed"
-                      >
-                        {/* Icon with Gradient Background */}
-                        <div className={`
-                          w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl mb-4 sm:mb-6
-                          bg-gradient-to-br ${industry.color}
-                          flex items-center justify-center
-                          group-hover:scale-110 group-hover:rotate-3
-                          transition-all duration-300
-                          shadow-lg
-                        `}>
-                          <div className="text-white [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-6 sm:[&>svg]:h-6 lg:[&>svg]:w-8 lg:[&>svg]:h-8">{industry.icon}</div>
-                        </div>
-        
-                        <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-2 sm:mb-3 text-foreground group-hover:text-primary transition-colors">
-                          {industry.title}
-                        </h3>
-                        <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed">
-                          {industry.description}
-                        </p>
-        
-                        {/* Hover Arrow */}
-                        <motion.div
-                          className="mt-4 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity"
-                          initial={{ x: -10 }}
-                          whileHover={{ x: 0 }}
-                        >
-                          <span className="text-sm font-medium">Learn More</span>
-                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </motion.div>
-                      </GlassCard>
-                    </motion.div>
-                  ))}
+        <div className="mb-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          {industries.map((industry, index) => (
+            <motion.div
+              key={index}
+              className="relative group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              {/* Card with Background Image */}
+              <div className={`
+                relative rounded-2xl sm:rounded-3xl overflow-hidden h-[320px] sm:h-[340px] lg:h-[360px]
+                bg-gradient-to-br ${industry.gradient}
+                border border-foreground/10
+                group-hover:border-primary/30
+                transition-all duration-500
+                group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.2)]
+                backdrop-blur-sm
+              `}>
+                {/* Industry Image Background - Top 40% */}
+                <div className="absolute top-0 left-0 right-0 h-[40%] overflow-hidden">
+                  <motion.img
+                    src={industry.image}
+                    alt={industry.title}
+                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                    initial={{ scale: 1.1, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 0.6 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                  />
+                  {/* Gradient overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" />
                 </div>
+
+                {/* Industry Icon - Overlaid on image */}
+                <motion.div 
+                  className={`
+                    absolute top-4 right-4 w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl
+                    bg-gradient-to-br ${industry.color}
+                    flex items-center justify-center z-10 shadow-lg
+                  `}
+                  whileHover={{ scale: 1.1, rotate: 3 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-white [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-6 sm:[&>svg]:h-6 lg:[&>svg]:w-8 lg:[&>svg]:h-8">
+                    {industry.icon}
+                  </div>
+                </motion.div>
+
+                {/* Content */}
+                <div className="relative h-full flex flex-col p-5 sm:p-6 lg:p-7">
+                  {/* Empty space for image area - Top 40% */}
+                  <div className="h-[40%]"></div>
+
+                  {/* Industry Title - Between image and description */}
+                  <motion.div
+                    className="py-3 z-10"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-foreground mb-0">
+                      {industry.title}
+                    </h3>
+                  </motion.div>
+
+                  {/* Industry Info - Bottom section */}
+                  <div className="flex-1 flex flex-col justify-between">
+                    <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-4">
+                      {industry.description}
+                    </p>
+
+                    {/* Learn More Link */}
+                    <motion.div
+                      className="flex items-center gap-2 text-primary transition-opacity mt-auto"
+                      initial={{ x: -10 }}
+                      whileHover={{ x: 0 }}
+                    >
+                      <span className="text-sm font-medium">Learn More</span>
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Decorative Corner */}
+                <div className="absolute top-0 right-0 w-20 h-20">
+                  <svg viewBox="0 0 100 100" className="w-full h-full opacity-10">
+                    <circle cx="100" cy="0" r="50" fill="url(#cornerGradient)" />
+                    <defs>
+                      <linearGradient id="cornerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="hsl(var(--primary))" />
+                        <stop offset="100%" stopColor="hsl(var(--secondary))" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
         {/* AI Services Grid
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
