@@ -74,16 +74,16 @@ export const AugmentedLabsPreview = () => {
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
         <div className="max-w-2xl mb-16">
-          <FadeInText>
+          {/* <FadeInText>
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
               AUGMENTED LABS (AIXR)
             </span>
-          </FadeInText>
+          </FadeInText> */}
           <FadeInText delay={0.1}>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-              Where Innovation Meets
-              <br />
-              <span className="text-gradient">Reality</span>
+              AI XR Lab:
+              {/* <br /> */}
+              <span className="text-gradient"> Where Innovation Meets Reality</span>
             </h2>
           </FadeInText>
           <FadeInText delay={0.2}>

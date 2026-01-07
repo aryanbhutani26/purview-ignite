@@ -12,17 +12,45 @@ import { PremiumShowcaseSection } from "@/components/sections/PremiumShowcaseSec
 import { PageTransition } from "@/components/ui/PageTransition";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const Index = () => {
+  const location = useLocation();
+
   useEffect(() => {
     document.title = "PurviewTech - AI XR Solutions | Transforming Reality";
     document.documentElement.style.scrollBehavior = 'smooth';
-    window.scrollTo(0, 0);
+    
+    // Check if we need to scroll to contact section
+    if (location.state?.scrollToContact) {
+      // Wait for the page to fully render before scrolling
+      const timer = setTimeout(() => {
+        const contactSection = document.getElementById("contact");
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 500); // Increased delay to ensure all components are rendered
+      
+      return () => {
+        clearTimeout(timer);
+        document.documentElement.style.scrollBehavior = 'auto';
+      };
+    } else {
+      window.scrollTo(0, 0);
+    }
     
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
     };
-  }, []);
+  }, [location.state]);
+
+  // Clear the navigation state after handling it
+  useEffect(() => {
+    if (location.state?.scrollToContact) {
+      // Clear the state to prevent re-scrolling on re-renders
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   return (
     <PageTransition>

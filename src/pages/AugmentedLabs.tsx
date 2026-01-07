@@ -21,7 +21,7 @@ import {
   Zap,
   Network
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const researchAreas = [
   {
@@ -105,9 +105,32 @@ const collaborations = [
 ];
 
 export default function AugmentedLabs() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleContactUs = () => {
+    // Navigate to home page with state to indicate we want to scroll to contact
+    navigate('/', { state: { scrollToContact: true } });
+  };
+
+  const handleExploreResearch = () => {
+    // Scroll to research areas section on the same page
+    const researchSection = document.getElementById("research-areas");
+    if (researchSection) {
+      researchSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleCollaborate = () => {
+    // Scroll to lab services section on the same page
+    const labServicesSection = document.getElementById("lab-services");
+    if (labServicesSection) {
+      labServicesSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <PageTransition>
@@ -143,10 +166,18 @@ export default function AugmentedLabs() {
             </FadeInText>
             <FadeInText delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <MagneticButton variant="primary" size="lg">
+                <MagneticButton 
+                  variant="primary" 
+                  size="lg"
+                  onClick={handleExploreResearch}
+                >
                   Explore Research
                 </MagneticButton>
-                <MagneticButton variant="secondary" size="lg">
+                <MagneticButton 
+                  variant="secondary" 
+                  size="lg"
+                  onClick={handleCollaborate}
+                >
                   Collaborate With Us
                 </MagneticButton>
               </div>
@@ -156,7 +187,7 @@ export default function AugmentedLabs() {
       </section>
 
       {/* Research Areas */}
-      <section className="py-16 sm:py-24 relative">
+      <section id="research-areas" className="py-16 sm:py-24 relative">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <FadeInText>
@@ -194,7 +225,7 @@ export default function AugmentedLabs() {
                     {area.tags.map((tag, i) => (
                       <span
                         key={i}
-                        className="px-2 py-1 text-xs rounded-full bg-accent/10 text-accent"
+                        className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 transition-colors"
                       >
                         {tag}
                       </span>
@@ -208,7 +239,7 @@ export default function AugmentedLabs() {
       </section>
 
       {/* Lab Services */}
-      <section className="py-16 sm:py-24 relative bg-card/30">
+      <section id="lab-services" className="py-16 sm:py-24 relative bg-card/30">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <FadeInText>
@@ -337,11 +368,13 @@ export default function AugmentedLabs() {
               opportunities, our labs are ready to collaborate.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/#contact">
-                <MagneticButton variant="primary" size="lg">
-                  Start a Project <ArrowRight className="w-5 h-5 ml-2" />
-                </MagneticButton>
-              </Link>
+              <MagneticButton 
+                variant="primary" 
+                size="lg"
+                onClick={handleContactUs}
+              >
+                Start a Project <ArrowRight className="w-5 h-5 ml-2" />
+              </MagneticButton>
             </div>
           </div>
         </div>

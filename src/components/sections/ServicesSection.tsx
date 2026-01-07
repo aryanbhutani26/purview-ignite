@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { GlassCard } from "../ui/GlassCard";
 import { FadeInText } from "../ui/AnimatedText";
+import { SmartSolutionsSection } from "./SmartSolutionsSection";
 import { useNavigate } from "react-router-dom";
 import {
   Glasses, 
@@ -18,7 +19,7 @@ import {
   ArrowRight,
   Wrench, 
   // Plane, 
-  Heart, 
+  Cross, 
   Factory, 
   Package, 
   Building2 
@@ -31,6 +32,8 @@ interface Device {
   cta: string;
   secondaryCta?: string;
   tourLink?: string;
+  image: string;
+  gradient: string;
 }
 
 const industries = [
@@ -51,12 +54,12 @@ const industries = [
     gradient: "from-purple-500/20 via-violet-500/20 to-indigo-500/20"
   },
   {
-    icon: <Heart className="w-8 h-8" />,
+    icon: <Cross className="w-8 h-8" />,
     title: "Healthcare",
     description: "AR-assisted surgery, training, and patient care solutions.",
-    color: "from-rose-500 to-pink-500",
+    color: "from-green-500 to-emerald-500",
     image: "/images/industrial_solutions/healthcare.png",
-    gradient: "from-red-500/20 via-pink-500/20 to-rose-500/20"
+    gradient: "from-green-500/20 via-emerald-500/20 to-teal-500/20"
   },
   {
     icon: <Factory className="w-8 h-8" />,
@@ -125,38 +128,50 @@ const devices: Device[] = [
     title: "Smart Glasses",
     description: "Experience augmented reality with our compatible smart glasses. Overlay digital information on the physical world.",
     cta: "View Compatible Models",
-    secondaryCta: "Get a tour",
-    tourLink: "/3d-tour",
+    // secondaryCta: "Get a tour",
+    // tourLink: "/3d-tour",
+    image: "/images/smart_devices/glasses.png",
+    gradient: "from-blue-500/20 via-indigo-500/20 to-purple-500/20"
   },
   {
     icon: <Smartphone className="w-8 h-8" />,
     title: "Smart Phones",
     description: "Leverage the power of smartphones for AR experiences. Use our app to unlock XR capabilities.",
     cta: "Download Mobile App",
+    image: "/images/smart_devices/phone.png",
+    gradient: "from-green-500/20 via-emerald-500/20 to-teal-500/20"
   },
   {
     icon: <Watch className="w-8 h-8" />,
     title: "Smart Watches",
     description: "Receive notifications and control XR experiences from your wrist with smartwatch integration.",
     cta: "Check Compatibility",
+    image: "/images/smart_devices/watch.png",
+    gradient: "from-orange-500/20 via-amber-500/20 to-yellow-500/20"
   },
   {
     icon: <Camera className="w-8 h-8" />,
     title: "Smart Cameras",
     description: "Capture high-quality imagery for XR applications with our compatible smart cameras.",
     cta: "Explore Camera Options",
+    image: "/images/smart_devices/camera.png",
+    gradient: "from-purple-500/20 via-violet-500/20 to-indigo-500/20"
   },
   {
     icon: <Plane className="w-8 h-8" />,
     title: "Smart Drones",
     description: "Capture aerial imagery and create 3D maps with drone integration for XR experiences.",
     cta: "View Drone Solutions",
+    image: "/images/smart_devices/drone.png",
+    gradient: "from-cyan-500/20 via-sky-500/20 to-blue-500/20"
   },
   {
     icon: <Car className="w-8 h-8" />,
     title: "Smart Vehicles",
     description: "Enhance driving experiences with AR windshields and in-vehicle XR entertainment.",
     cta: "Discover Vehicle Integration",
+    image: "/images/smart_devices/car.png",
+    gradient: "from-red-500/20 via-rose-500/20 to-pink-500/20"
   },
 ];
 
@@ -269,7 +284,7 @@ export const ServicesSection = () => {
                     </p>
 
                     {/* Learn More Link */}
-                    <motion.div
+                    {/* <motion.div
                       className="flex items-center gap-2 text-primary transition-opacity mt-auto"
                       initial={{ x: -10 }}
                       whileHover={{ x: 0 }}
@@ -278,7 +293,7 @@ export const ServicesSection = () => {
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
-                    </motion.div>
+                    </motion.div> */}
                   </div>
                 </div>
 
@@ -320,6 +335,12 @@ export const ServicesSection = () => {
           ))}
         </div> */}
 
+      </div>
+      
+      {/* Smart Solutions Section */}
+      <SmartSolutionsSection />
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Compatible Devices */}
         <div className="mb-12">
           <FadeInText>
@@ -331,40 +352,107 @@ export const ServicesSection = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {devices.map((device, index) => (
-            <GlassCard 
-              key={index} 
-              className="p-6 group cursor-pointer"
-              delay={index * 0.1}
+            <motion.div
+              key={index}
+              className="relative group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
-              <div className="mb-4 w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/15 transition-colors duration-300 border border-primary/20">
-                <div className="text-primary">{device.icon}</div>
-              </div>
-              <h4 className="text-lg font-semibold mb-2 text-foreground group-hover:text-primary transition-colors">
-                {device.title}
-              </h4>
-              <p className="text-muted-foreground text-sm mb-4">
-                {device.description}
-              </p>
-              
-              {/* Buttons */}
-              <div className="space-y-2">
-                <button className="text-primary text-sm font-medium hover:text-primary/80 transition-colors flex items-center gap-2 w-full">
-                  {device.cta}
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                
-                {/* Show "Get a tour" button only for Smart Glasses */}
-                {device.secondaryCta && device.tourLink && (
-                  <button 
-                    onClick={() => navigate(device.tourLink)}
-                    className="text-primary text-sm font-medium hover:text-primary/80 transition-colors flex items-center gap-2 w-full bg-primary/10 hover:bg-primary/20 px-3 py-2 rounded-lg border border-primary/20"
+              {/* Card with Background Image */}
+              <div className={`
+                relative rounded-2xl sm:rounded-3xl overflow-hidden h-[320px] sm:h-[340px] lg:h-[360px]
+                bg-gradient-to-br ${device.gradient}
+                border border-foreground/10
+                group-hover:border-primary/30
+                transition-all duration-500
+                group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.2)]
+                backdrop-blur-sm
+              `}>
+                {/* Device Image Background - Top 40% */}
+                <div className="absolute top-0 left-0 right-0 h-[40%] overflow-hidden">
+                  <motion.img
+                    src={device.image}
+                    alt={device.title}
+                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
+                    initial={{ scale: 1.1, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 0.6 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                  />
+                  {/* Gradient overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/80" />
+                </div>
+
+                {/* Device Icon - Overlaid on image */}
+                <motion.div 
+                  className="absolute top-4 right-4 w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center z-10"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="text-white drop-shadow-lg">
+                    {device.icon}
+                  </div>
+                </motion.div>
+
+                {/* Content */}
+                <div className="relative h-full flex flex-col p-5 sm:p-6 lg:p-7">
+                  {/* Empty space for image area - Top 40% */}
+                  <div className="h-[40%]"></div>
+
+                  {/* Device Title - Between image and description */}
+                  <motion.div
+                    className="py-3 z-10"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
-                    {device.secondaryCta}
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                )}
+                    <h4 className="text-lg sm:text-xl font-bold text-foreground mb-0">
+                      {device.title}
+                    </h4>
+                  </motion.div>
+
+                  {/* Device Info - Bottom section */}
+                  <div className="flex-1 flex flex-col justify-between">
+                    <p className="text-muted-foreground text-xs sm:text-sm mb-4">
+                      {device.description}
+                    </p>
+                    
+                    {/* Buttons */}
+                    <div className="space-y-2 mt-auto">
+                      <button className="text-primary text-sm font-medium hover:text-primary/80 transition-colors flex items-center gap-2 w-full">
+                        {device.cta}
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                      
+                      {/* Show "Get a tour" button only for Smart Glasses */}
+                      {/* {device.secondaryCta && device.tourLink && (
+                        <button 
+                          onClick={() => navigate(device.tourLink)}
+                          className="text-primary text-sm font-medium hover:text-primary/80 transition-colors flex items-center gap-2 w-full bg-primary/10 hover:bg-primary/20 px-3 py-2 rounded-lg border border-primary/20"
+                        >
+                          {device.secondaryCta}
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
+                      )} */}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Decorative Corner */}
+                <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <circle cx="100" cy="0" r="50" fill="url(#cornerGradient)" />
+                    <defs>
+                      <linearGradient id="cornerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="hsl(var(--primary))" />
+                        <stop offset="100%" stopColor="hsl(var(--secondary))" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
               </div>
-            </GlassCard>
+            </motion.div>
           ))}
         </div>
       </div>
