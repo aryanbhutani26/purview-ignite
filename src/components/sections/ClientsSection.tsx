@@ -12,6 +12,8 @@ const clientLogos = [
      { src: "/images/logos/digilens.png", alt: "DigiLens" },
 ];
 
+
+// Finished this part 
 const partnerLogos = [
   // { src: "/images/logos/vuzix.png", alt: "Vuzix" },
   // { src: "/images/logos/digilens.png", alt: "DigiLens" },
