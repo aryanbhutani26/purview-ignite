@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { MagneticButton } from "../ui/MagneticButton";
 import { ThemeToggle } from "../ui/ThemeToggle";
+import { Logo } from "../ui/Logo";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface NavItem {
@@ -47,7 +48,12 @@ export const Navbar = () => {
       navigate(href);
     } else if (href.startsWith("#")) {
       if (location.pathname !== "/") {
-        navigate("/" + href);
+        // Navigate to home page with state to indicate we want to scroll to contact
+        if (href === "#contact") {
+          navigate("/", { state: { scrollToContact: true } });
+        } else {
+          navigate("/" + href);
+        }
       } else {
         const id = href.replace("#", "");
         const element = document.getElementById(id);
@@ -83,11 +89,7 @@ export const Navbar = () => {
             }}
             whileHover={{ scale: 1.02 }}
           >
-            <img 
-              src="/images/logo.png" 
-              alt="Purview Technologies" 
-              className="w-32 h-24 object-contain"
-            />
+            <Logo className="w-32 h-24" />
             {/* <div className="flex flex-col">
               <span className="text-xl font-bold text-foreground tracking-tight">
                 PURVIEW

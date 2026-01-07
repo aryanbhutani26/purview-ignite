@@ -1,19 +1,26 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Logo } from "../ui/Logo";
 
 const footerLinks = {
   company: [
     { label: "About Us", href: "/about" },
     { label: "Careers", href: "#" },
     { label: "Contact", href: "#contact" },
-    { label: "Blog", href: "#" },
+    // { label: "Blog", href: "#" },
   ],
   products: [
     { label: "SEVA", href: "#products" },
     { label: "Maîtiri", href: "#products" },
     { label: "Silenta", href: "#products" },
-    { label: "NexAble", href: "#products" },
+    // { label: "NexAble", href: "#products" },
+  ],
+  platforms: [
+    { label: "SmartCare", href: "#smart-solutions" },
+    { label: "SmartPick", href: "#smart-solutions" },
+    { label: "SmartInspect", href: "#smart-solutions" },
+    { label: "SmartSurveillance", href: "#smart-solutions" },
   ],
   solutions: [
     { label: "Field Service", href: "#solutions" },
@@ -53,7 +60,7 @@ export const Footer = () => {
   return (
     <footer className="relative bg-muted/30 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 py-16 relative z-10">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-8 sm:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 lg:col-span-2">
             <motion.div
@@ -63,15 +70,11 @@ export const Footer = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <img 
-                  src="/images/logo.png" 
-                  alt="Purview Technologies" 
-                  className="w-10 h-10 object-contain"
-                />
-                <div className="flex flex-col">
+                <Logo className="w-16 h-16" />
+                {/* <div className="flex flex-col">
                   <span className="text-xl font-bold text-foreground tracking-tight">PURVIEW</span>
                   <span className="text-[10px] tracking-[0.15em] text-muted-foreground uppercase">Technologies</span>
-                </div>
+                </div> */}
               </div>
 
               <p className="text-muted-foreground mb-6 max-w-sm">

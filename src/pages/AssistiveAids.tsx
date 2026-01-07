@@ -19,7 +19,7 @@ import {
   Shield,
   Globe
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -72,9 +72,24 @@ const stats = [
 ];
 
 export default function AssistiveAids() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleContactUs = () => {
+    // Navigate to home page with state to indicate we want to scroll to contact
+    navigate('/', { state: { scrollToContact: true } });
+  };
+
+  const handleExploreProducts = () => {
+    // Scroll to products section on the same page
+    const productsSection = document.getElementById("products");
+    if (productsSection) {
+      productsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <PageTransition>
@@ -110,10 +125,18 @@ export default function AssistiveAids() {
             </FadeInText>
             <FadeInText delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <MagneticButton variant="primary" size="lg">
+                <MagneticButton 
+                  variant="primary" 
+                  size="lg"
+                  onClick={handleExploreProducts}
+                >
                   Explore Products
                 </MagneticButton>
-                <MagneticButton variant="secondary" size="lg">
+                <MagneticButton 
+                  variant="secondary" 
+                  size="lg"
+                  onClick={handleContactUs}
+                >
                   Partner With Us
                 </MagneticButton>
               </div>
@@ -148,7 +171,7 @@ export default function AssistiveAids() {
       </section>
 
       {/* Products Section */}
-      <section className="py-16 sm:py-24 relative">
+      <section id="products" className="py-16 sm:py-24 relative">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <FadeInText>
@@ -315,11 +338,13 @@ export default function AssistiveAids() {
               we'd love to hear from you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/#contact">
-                <MagneticButton variant="primary" size="lg">
-                  Contact Us <ArrowRight className="w-5 h-5 ml-2" />
-                </MagneticButton>
-              </Link>
+              <MagneticButton 
+                variant="primary" 
+                size="lg"
+                onClick={handleContactUs}
+              >
+                Contact Us <ArrowRight className="w-5 h-5 ml-2" />
+              </MagneticButton>
             </div>
           </div>
         </div>

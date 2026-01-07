@@ -32,7 +32,7 @@ export const LogoMarquee = ({ logos, className, speed = 30, reverse = false }: L
         {duplicatedLogos.map((logo, index) => (
           <div
             key={index}
-            className="flex-shrink-0 mx-8 h-12 w-32 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer"
+            className="flex-shrink-0 mx-12 h-16 w-40 flex items-center justify-center hover:scale-110 transition-transform duration-300 cursor-pointer"
           >
             <img
               src={logo.src}

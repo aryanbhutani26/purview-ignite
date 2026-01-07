@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { FadeInText } from "@/components/ui/AnimatedText";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { Target, Eye, Award, Users, MapPin, Calendar, Globe, TrendingUp } from "lucide-react";
+import { Target, Eye, Award, Users, Calendar, Globe, TrendingUp } from "lucide-react";
 import { useEffect } from "react";
 
 const values = [
@@ -157,7 +157,100 @@ const About = () => {
           </div>
         </section>
 
-        
+        {/* Team Section */}
+        <section className="py-16 sm:py-24 relative bg-card/30">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Text Content */}
+              <div className="order-2 lg:order-1">
+                <FadeInText>
+                  <h2 className="text-3xl sm:text-4xl font-semibold mb-6 text-foreground">
+                    Meet Our <span className="text-primary">Revolutionary Team</span>
+                  </h2>
+                </FadeInText>
+                <FadeInText delay={0.1}>
+                  <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+                    Behind every breakthrough innovation is a team of passionate visionaries. Our diverse group 
+                    of engineers, designers, and researchers work tirelessly to push the boundaries of what's 
+                    possible in AI and XR technology.
+                  </p>
+                </FadeInText>
+                <FadeInText delay={0.2}>
+                  <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                    From developing cutting-edge smart solutions to creating accessible assistive technologies, 
+                    our team combines technical expertise with human empathy to build products that truly 
+                    make a difference in people's lives.
+                  </p>
+                </FadeInText>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="flex flex-wrap gap-4"
+                >
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary">
+                    <Users className="w-4 h-4" />
+                    <span className="text-sm font-medium">Collaborative</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary">
+                    <Award className="w-4 h-4" />
+                    <span className="text-sm font-medium">Expert</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary">
+                    <TrendingUp className="w-4 h-4" />
+                    <span className="text-sm font-medium">Innovative</span>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Team Image */}
+              <div className="order-1 lg:order-2">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="relative"
+                >
+                  <div className="relative overflow-hidden rounded-2xl">
+                    <img
+                      src="/images/aboutusImage.jpg"
+                      alt="Meet Our Revolutionary Team"
+                      className="w-full h-[400px] sm:h-[500px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  </div>
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl" />
+                  <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl" />
+                  
+                  {/* Glass Card Overlay */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
+                    className="absolute bottom-6 left-6 right-6"
+                  >
+                    <GlassCard className="p-4 backdrop-blur-md bg-white/10">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-white font-medium"> Team Purview</p>
+                          <p className="text-white/80 text-sm">Shaping the Future</p>
+                        </div>
+                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                          <Users className="w-6 h-6 text-white" />
+                        </div>
+                      </div>
+                    </GlassCard>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <Footer />
       </div>

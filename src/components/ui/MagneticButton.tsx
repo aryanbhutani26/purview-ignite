@@ -99,21 +99,79 @@ export const ScrollDownIndicator = ({ targetId, className }: ScrollDownIndicator
   return (
     <motion.button
       className={cn(
-        "flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors",
+        "flex flex-col items-center gap-3 text-muted-foreground hover:text-foreground transition-colors group",
         className
       )}
       onClick={handleClick}
-      animate={{ y: [0, 6, 0] }}
-      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
-      <span className="text-xs font-medium tracking-wider uppercase">Scroll</span>
-      <motion.div className="w-5 h-8 rounded-full border border-current flex justify-center pt-1.5">
+      <motion.span 
+        className="text-xs font-medium tracking-wider uppercase"
+        animate={{ opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        Scroll
+      </motion.span>
+      
+      <motion.div 
+        className="relative w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2 group-hover:border-foreground transition-colors"
+        animate={{ y: [0, 4, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
         <motion.div
-          className="w-1 h-1.5 bg-current rounded-full"
-          animate={{ opacity: [1, 0.3, 1], y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="w-1.5 h-2 bg-current rounded-full"
+          animate={{ 
+            opacity: [1, 0.4, 1], 
+            y: [0, 8, 0],
+            scaleY: [1, 0.8, 1]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            times: [0, 0.5, 1]
+          }}
+        />
+        
+        {/* Additional animated dots for better visibility */}
+        <motion.div
+          className="absolute top-3 w-1 h-1 bg-current rounded-full opacity-60"
+          animate={{ 
+            opacity: [0, 1, 0],
+            y: [0, 6, 12]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 0.3
+          }}
+        />
+        
+        <motion.div
+          className="absolute top-4 w-0.5 h-0.5 bg-current rounded-full opacity-40"
+          animate={{ 
+            opacity: [0, 1, 0],
+            y: [0, 4, 8]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 0.6
+          }}
         />
       </motion.div>
+      
+      {/* Subtle glow effect */}
+      <motion.div
+        className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+        style={{
+          background: "radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)",
+          filter: "blur(8px)"
+        }}
+      />
     </motion.button>
   );
 };

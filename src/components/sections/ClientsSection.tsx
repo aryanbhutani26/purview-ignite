@@ -41,6 +41,11 @@ export const ClientsSection = () => {
                 Our <span className="text-gradient">Partners</span>
               </h2>
             </FadeInText>
+            <FadeInText delay={0.2}>
+              <p className="text-muted-foreground max-w-2xl mx-auto mt-4">
+                Purview Technologies collaborates with leading AR innovators
+              </p>
+            </FadeInText>
           </div>
 
           <motion.div
@@ -49,7 +54,7 @@ export const ClientsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <LogoMarquee logos={clientLogos} speed={35} />
+            <LogoMarquee logos={clientLogos} speed={28} />
           </motion.div>
         </div>
 
