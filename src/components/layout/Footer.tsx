@@ -22,12 +22,12 @@ const footerLinks = {
     { label: "SmartInspect", href: "#smart-solutions" },
     { label: "SmartSurveillance", href: "#smart-solutions" },
   ],
-  solutions: [
-    { label: "Field Service", href: "#solutions" },
-    { label: "Healthcare", href: "#solutions" },
-    { label: "Manufacturing", href: "#solutions" },
-    { label: "Defence", href: "#solutions" },
-  ],
+  // solutions: [
+  //   { label: "Field Service", href: "#solutions" },
+  //   { label: "Healthcare", href: "#solutions" },
+  //   { label: "Manufacturing", href: "#solutions" },
+  //   { label: "Defence", href: "#solutions" },
+  // ],
 };
 
 const socialLinks = [
@@ -60,7 +60,7 @@ export const Footer = () => {
   return (
     <footer className="relative bg-muted/30 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 py-16 relative z-10">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 gap-8 sm:gap-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 sm:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 lg:col-span-2">
             <motion.div
@@ -70,7 +70,7 @@ export const Footer = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-3 mb-6">
-                <Logo className="w-16 h-16" />
+                <Logo className="h-16 w-auto" />
                 {/* <div className="flex flex-col">
                   <span className="text-xl font-bold text-foreground tracking-tight">PURVIEW</span>
                   <span className="text-[10px] tracking-[0.15em] text-muted-foreground uppercase">Technologies</span>
@@ -115,7 +115,7 @@ export const Footer = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
             >
-              <h4 className="text-foreground font-semibold mb-4 capitalize">{title}</h4>
+              <h4 className="text-foreground font-semibold mb-4  capitalize">{title}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
