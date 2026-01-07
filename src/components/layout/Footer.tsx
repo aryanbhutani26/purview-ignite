@@ -60,7 +60,7 @@ export const Footer = () => {
   return (
     <footer className="relative bg-muted/30 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 py-16 relative z-10">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 sm:gap-12">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 sm:gap-12">
           {/* Brand Column */}
           <div className="col-span-2 lg:col-span-2">
             <motion.div
