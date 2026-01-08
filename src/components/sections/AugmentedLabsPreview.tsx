@@ -184,7 +184,7 @@ export const AugmentedLabsPreview = () => {
             onClick={handleExploreClick}
             className="group"
           >
-            Explore AI XR Labs
+            Explore AI XR Lab
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
         </motion.div>

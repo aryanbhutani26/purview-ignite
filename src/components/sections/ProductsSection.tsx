@@ -65,7 +65,7 @@ export const ProductsSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-            <span className="text-sm text-secondary font-medium">NEXABLE PRODUCTS</span>
+            <span className="text-sm text-secondary font-medium"></span>
           </motion.div>
           
           <motion.h2

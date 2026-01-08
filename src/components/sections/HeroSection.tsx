@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { MagneticButton, ScrollDownIndicator } from "../ui/MagneticButton";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { FloatingShapes3D } from "../3d/FloatingShapes";
 import { useEffect, useState } from "react";
 
@@ -39,7 +39,7 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
 
       {/* Hero Content */}
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-16 sm:pt-20">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-24 sm:pt-28 md:pt-32">
         <div className="max-w-4xl mx-auto">
           {/* Badge */}
           <motion.div

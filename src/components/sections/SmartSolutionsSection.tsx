@@ -59,7 +59,7 @@ export const SmartSolutionsSection = () => {
         <div className="max-w-2xl mb-16">
           <FadeInText>
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-              SMART SOLUTIONS PLATFORMS
+              SMART SOLUTIONS PLATFORM
             </span>
           </FadeInText>
           <FadeInText delay={0.1}>
