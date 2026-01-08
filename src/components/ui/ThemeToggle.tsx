@@ -3,12 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon, Stars } from "lucide-react";
 
 export const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true); // Default to dark mode
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    const isDarkMode = document.documentElement.classList.contains("dark");
+    const theme = localStorage.getItem('theme');
+    const isDarkMode = theme === 'light' ? false : true; // Default to dark if no theme or theme is 'dark'
     setIsDark(isDarkMode);
+    
+    // Ensure the DOM reflects the correct theme
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, []);
 
   const toggleTheme = () => {

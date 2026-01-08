@@ -5,6 +5,9 @@ import { GlassCard } from "../ui/GlassCard";
 import { MagneticButton } from "../ui/MagneticButton";
 import { Send, Mail, Phone, MapPin, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
+import emailjs from '@emailjs/browser';
+import { EMAILJS_CONFIG } from '@/config/emailjs';
 
 export const ContactSection = () => {
   const { toast } = useToast();
@@ -20,16 +23,55 @@ export const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    
-    setFormData({ name: "", email: "", company: "", message: "" });
-    setIsSubmitting(false);
+    try {
+      // Validate form data
+      if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+        toast({
+          title: "Please fill in all required fields",
+          description: "Name, email, and message are required.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Prepare template parameters
+      const templateParams = {
+        from_name: formData.name.trim(),
+        from_email: formData.email.trim(),
+        company: formData.company.trim() || 'Not specified',
+        message: formData.message.trim(),
+        to_email: EMAILJS_CONFIG.TO_EMAIL,
+        reply_to: formData.email.trim(),
+        timestamp: new Date().toLocaleString(),
+      };
+      
+      // Send email using EmailJS
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        templateParams,
+        EMAILJS_CONFIG.PUBLIC_KEY
+      );
+      
+      toast({
+        title: "Message Sent Successfully! ",
+        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+      });
+      
+      // Reset form
+      setFormData({ name: "", email: "", company: "", message: "" });
+      
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      toast({
+        title: "Failed to Send Message",
+        description: "There was an error sending your message. Please try again or contact us directly at info@purviewtech.ai",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -54,12 +96,12 @@ export const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 dark:from-rose-950 dark:via-pink-950 dark:to-purple-950">
-      {/* Warm Pink/Purple Background Effects */}
+    <section id="contact" className="py-16 sm:py-24 relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-cyan-50 dark:from-blue-950 dark:via-indigo-950 dark:to-cyan-950">
+      {/* Cool Blue Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-rose-500/15 to-pink-500/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-purple-500/15 to-fuchsia-500/15 rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-gradient-to-r from-rose-500/5 via-pink-500/5 to-purple-500/5" />
+        <div className="absolute top-0 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-blue-500/15 to-indigo-500/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-r from-indigo-500/15 to-cyan-500/15 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-indigo-500/5 to-cyan-500/5" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -101,7 +143,7 @@ export const ContactSection = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-muted-foreground mb-2">
-                      Your Name
+                      Your Name *
                     </label>
                     <input
                       type="text"
@@ -110,11 +152,12 @@ export const ContactSection = () => {
                       className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-foreground"
                       placeholder="John Doe"
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-muted-foreground mb-2">
-                      Email Address
+                      Email Address *
                     </label>
                     <input
                       type="email"
@@ -123,6 +166,7 @@ export const ContactSection = () => {
                       className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-foreground"
                       placeholder="john@company.com"
                       required
+                      disabled={isSubmitting}
                     />
                   </div>
                 </div>
@@ -137,12 +181,13 @@ export const ContactSection = () => {
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-foreground"
                     placeholder="Your Company"
+                    disabled={isSubmitting}
                   />
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-2">
-                    Message
+                    Message *
                   </label>
                   <textarea
                     value={formData.message}
@@ -151,16 +196,23 @@ export const ContactSection = () => {
                     className="w-full px-4 py-3 rounded-xl bg-background/50 border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all text-foreground resize-none"
                     placeholder="Tell us about your project..."
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
 
-                <MagneticButton
-                  variant="primary"
-                  size="lg"
-                  className="w-full"
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={cn(
+                    "w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300",
+                    "bg-primary text-primary-foreground hover:bg-primary/90",
+                    "disabled:opacity-50 disabled:cursor-not-allowed",
+                    "transform hover:scale-105 active:scale-95",
+                    "shadow-lg hover:shadow-xl"
+                  )}
                 >
                   {isSubmitting ? (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center justify-center gap-2">
                       <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
@@ -168,12 +220,12 @@ export const ContactSection = () => {
                       Sending...
                     </span>
                   ) : (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center justify-center gap-2">
                       <Send className="w-5 h-5" />
                       Send Message
                     </span>
                   )}
-                </MagneticButton>
+                </button>
               </form>
             </GlassCard>
           </motion.div>

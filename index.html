@@ -27,8 +27,15 @@
     <script>
       (function() {
         const theme = localStorage.getItem('theme');
-        if (theme === 'dark') {
+        // Default to dark theme if no theme is stored
+        if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          // Default to dark mode (when theme is null, undefined, or 'dark')
           document.documentElement.classList.add('dark');
+          if (!theme) {
+            localStorage.setItem('theme', 'dark');
+          }
         }
       })();
     </script>

@@ -175,8 +175,8 @@ export default function AssistiveAids() {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <FadeInText>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                NexAble <span className="text-gradient">Products</span>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">
+                NexAble <span className="bg-gradient-to-r from-primary via-blue-500 to-cyan-500 dark:from-blue-400 dark:via-cyan-400 dark:to-indigo-400 bg-clip-text text-transparent">Products</span>
               </h2>
             </FadeInText>
             <FadeInText delay={0.1}>

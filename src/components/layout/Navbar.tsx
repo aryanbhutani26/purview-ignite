@@ -89,7 +89,7 @@ export const Navbar = () => {
             }}
             whileHover={{ scale: 1.02 }}
           >
-            <Logo className="w-32 h-24" />
+            <Logo className="h-16 w-auto" />
             {/* <div className="flex flex-col">
               <span className="text-xl font-bold text-foreground tracking-tight">
                 PURVIEW

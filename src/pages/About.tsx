@@ -211,40 +211,49 @@ const About = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
-                  className="relative"
+                  className="relative group"
                 >
-                  <div className="relative overflow-hidden rounded-2xl">
-                    <img
-                      src="/images/aboutusImage.jpg"
-                      alt="Meet Our Revolutionary Team"
-                      className="w-full h-[400px] sm:h-[500px] object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  {/* Main Image Container */}
+                  <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+                    <div className="aspect-square w-full">
+                      <img
+                        src="/images/aboutusImage.jpg"
+                        alt="Meet Our Revolutionary Team - Purview Technologies team members collaborating"
+                        className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                    
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+                    
+                    {/* Subtle Border */}
+                    <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
                   </div>
                   
-                  {/* Floating Elements */}
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl" />
-                  <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl" />
+                  {/* Decorative Background Elements */}
+                  <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-full blur-2xl -z-10" />
+                  <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-2xl -z-10" />
                   
-                  {/* Glass Card Overlay */}
+                  {/* Team Info Card */}
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
-                    className="absolute bottom-6 left-6 right-6"
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6"
                   >
-                    <GlassCard className="p-4 backdrop-blur-md bg-white/10">
+                    <div className="backdrop-blur-md bg-white/10 dark:bg-black/20 rounded-xl p-4 border border-white/20">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-white font-medium"> Team Purview</p>
-                          <p className="text-white/80 text-sm">Shaping the Future</p>
+                          <h3 className="text-white font-semibold text-lg">Team Purview</h3>
+                          <p className="text-white/90 text-sm">Shaping the Future Together</p>
                         </div>
-                        <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-primary/30 backdrop-blur-sm flex items-center justify-center border border-white/20">
                           <Users className="w-6 h-6 text-white" />
                         </div>
                       </div>
-                    </GlassCard>
+                    </div>
                   </motion.div>
                 </motion.div>
               </div>
