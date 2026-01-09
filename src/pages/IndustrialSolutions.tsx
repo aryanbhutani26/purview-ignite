@@ -6,6 +6,7 @@ import { FadeInText } from "@/components/ui/AnimatedText";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { PageTransition } from "@/components/ui/PageTransition";
+import { SmartSolutionsSection } from "@/components/sections/SmartSolutionsSection";
 import {
   Factory, 
   Cross, 
@@ -27,7 +28,7 @@ import {
   Car,
   ArrowRight
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const industries = [
   {
@@ -112,6 +113,8 @@ const services = [
     description: "Custom solutions tailored to specific client needs, from consulting to full-scale deployment.",
   },
 ];
+
+
 
 const devices = [
   {
@@ -394,6 +397,14 @@ export default function IndustrialSolutions() {
           </div>
         </div>
       </section>
+
+
+
+
+
+
+      {/* Smart Solutions Section */}
+      <SmartSolutionsSection />
 
       {/* Compatible Devices */}
       <section className="py-16 sm:py-24 relative bg-card/30">
