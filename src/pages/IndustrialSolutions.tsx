@@ -6,7 +6,7 @@ import { FadeInText } from "@/components/ui/AnimatedText";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { PageTransition } from "@/components/ui/PageTransition";
-import { SmartSolutionsSection } from "@/components/sections/SmartSolutionsSection";
+import { IndustrialSmartSolutions } from "@/components/sections/IndustrialSmartSolutions";
 import {
   Factory, 
   Cross, 
@@ -168,6 +168,15 @@ export default function IndustrialSolutions() {
     window.scrollTo(0, 0);
   }, []);
 
+  const handleViewDemos = () => {
+    const smartSolutionsSection = document.getElementById('smart-solutions');
+    if (smartSolutionsSection) {
+      const yOffset = -80; // Offset for navbar height
+      const y = smartSolutionsSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   const handleRequestDemo = () => {
     // Navigate to home page with state to indicate we want to scroll to contact
     navigate('/', { state: { scrollToContact: true } });
@@ -210,9 +219,9 @@ export default function IndustrialSolutions() {
                 <MagneticButton 
                   variant="primary" 
                   size="lg"
-                  onClick={handleRequestDemo}
+                  onClick={handleViewDemos}
                 >
-                  Request Demo
+                  View Demos
                 </MagneticButton>
                 <MagneticButton variant="secondary" size="lg">
                   View Case Studies
@@ -404,7 +413,7 @@ export default function IndustrialSolutions() {
 
 
       {/* Smart Solutions Section */}
-      <SmartSolutionsSection />
+      <IndustrialSmartSolutions />
 
       {/* Compatible Devices */}
       <section className="py-16 sm:py-24 relative bg-card/30">
